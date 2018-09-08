@@ -74,7 +74,8 @@ echo "Your registration key is $key."
 
 echo "Installing QuickCheck R17... "
 cd *Quviq* &> /dev/null
-erl -noshell -eval "eqc_install:install()."
+mkdir ~/.QC
+erl -noshell -eval "eqc_install:install(\"~/.QC\")."
 if [ "$?" -ne 0 ]; then
     echo "Error" >&2
     exit 1
