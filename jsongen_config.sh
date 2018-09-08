@@ -2,6 +2,7 @@
 
 # installing and compiling de correct erlang version...
 DEPS="gcc libssl-dev make automake autoconf libncurses5-dev unzip"
+ERL_V="17.0"
 
 echo -n "Installing kerl... "
 if [ "$(uname)" == "Darwin" ]; then
@@ -22,16 +23,16 @@ if [ "$?" -ne 0 ]; then
 fi
 echo "Done"
 
-echo -n "Building erlang 17.0, please wait... "
-kerl build 17.0 17.0 &> /dev/null
+echo -n "Building erlang $ERL_V, please wait... "
+kerl build $ERL_V $ERL_V &> /dev/null
 echo "Done"
 
-echo -n "Installing erlang 17.0, please wait... "
-kerl install 17.0 ~/kerl/17.0 &> /dev/null
+echo -n "Installing erlang $ERL_V, please wait... "
+kerl install $ERL_V ~/kerl/$ERL_V &> /dev/null
 echo "Done"
 
-echo -n "Activating erlang 17.0, please wait... "
-. ~/kerl/17.0/activate
+echo -n "Activating erlang $ERL_V, please wait... "
+. ~/kerl/$ERL_V/activate
 if [ "$?" -ne 0 ]; then
     echo "Error" >&2
     exit 1
@@ -39,13 +40,14 @@ fi
 echo "Done"
 
 echo " - To check the active erlang distribution type: kerl active"
-echo " - To activate erlang 17.0 please type: . ~/kerl/17.0/activate"
+echo " - To activate erlang $ERL_V please type: . ~/kerl/$ERL_V/activate"
 
 # installing rebar3 and building it with R17...
 git clone https://github.com/erlang/rebar3.git &> /dev/null
 cd rebar3
 ./bootstrap
 ./rebar3 local install
+export PATH=/Users/luis/.cache/rebar3/bin:$PATH
 cd ..
 
 # installing QC
