@@ -1,15 +1,14 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # installing and compiling de correct erlang version...
-DEPS="gcc libssl-dev make automake autoconf libncurses5-dev"
-
-echo -n "Installing kerl dependencies... "
-sudo apt install -y $DEPS
+DEPS="gcc libssl-dev make automake autoconf libncurses5-dev unzip"
 
 echo -n "Installing kerl... "
 if [ "$(uname)" == "Darwin" ]; then
     brew install kerl &> /dev/null
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    echo -n "Installing kerl dependencies... "
+    sudo apt install -y $DEPS
     curl -O https://raw.githubusercontent.com/kerl/kerl/master/kerl &> /dev/null
     chmod a+x kerl &> /dev/null
     mkdir ~/bin &> /dev/null
@@ -25,18 +24,10 @@ echo "Done"
 
 echo -n "Building erlang 17.0, please wait... "
 kerl build 17.0 17.0 &> /dev/null
-if [ "$?" -ne 0 ]; then
-    echo "Error" >&2
-    exit 1
-fi
 echo "Done"
 
 echo -n "Installing erlang 17.0, please wait... "
-kerl install 17.0 &> ~/kerl/17.0
-if [ "$?" -ne 0 ]; then
-    echo "Error" >&2
-    exit 1
-fi
+kerl install 17.0 ~/kerl/17.0 &> /dev/null
 echo "Done"
 
 echo -n "Activating erlang 17.0, please wait... "
@@ -47,8 +38,15 @@ if [ "$?" -ne 0 ]; then
 fi
 echo "Done"
 
-echo "\t- To check the active erlang distribution type: kerl active"
-echo "\t- To activate erlang 17.0 please type: . ~/kerl/17.0/activate"
+echo " - To check the active erlang distribution type: kerl active"
+echo " - To activate erlang 17.0 please type: . ~/kerl/17.0/activate"
+
+# installing rebar3 and building it with R17...
+git clone https://github.com/erlang/rebar3.git &> /dev/null
+cd rebar3
+./bootstrap
+./rebar3 local install
+cd ..
 
 # installing QC
 echo -n "Downloading Quviq's QuickCheck R17... "
@@ -73,6 +71,7 @@ echo ""
 echo "Your registration key is $key."
 
 echo "Installing QuickCheck R17... "
+cd *Quviq* &> /dev/null
 erl -noshell -eval "eqc_install:install()."
 if [ "$?" -ne 0 ]; then
     echo "Error" >&2
@@ -86,6 +85,8 @@ if [ "$?" -ne 0 ]; then
     exit 1
 fi
 
+cd ..
+
 # Downloading and installing jsongen
 echo -n "Downloading jsongen... "
 git clone https://github.com/fredlund/jsongen.git &> /dev/null
@@ -95,10 +96,11 @@ if [ "$?" -ne 0 ]; then
 fi
 echo "Done"
 
-echo -n "Building jsongen... "
-make compile &> /dev/null
+echo "Building jsongen... "
+cd jsongen
+make compile
 if [ "$?" -ne 0 ]; then
     echo "Error" >&2
     exit 1
 fi
-echo "Done"
+cd ..
