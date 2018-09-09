@@ -9,11 +9,24 @@
    - [[https://github.com/fredlund/jsongen][jsongen]]
    To use kerl and rebar3 afterwords you will need to add
    these lines to your shell configuration file:
- #+BEGIN_SRC shell
+   #+BEGIN_SRC shell
 export PATH=$PATH:~/bin         # for kerl, only on Linux installations
 export PATH=/Users/luis/.cache/rebar3/bin:$PATH # rebar3 binary
- #+END_SRC
+   #+END_SRC
    To activate erlang 17.0 installed with kerl use:
+   #+BEGIN_SRC shell
+$ . ~/kerl/17.0/activate
+   #+END_SRC
+** Execution
+   First you need to start de API for testing.
+
+   Once it's started change to the ~schemas~ directory, and type:
+   #+BEGIN_SRC shell
+$ make compile
+   #+END_SRC
+
+   When it finishes just type:
+
 #+BEGIN_SRC shell
-. ~/kerl/17.0/activate
+$ rebar3 shell --name [node name]
 #+END_SRC

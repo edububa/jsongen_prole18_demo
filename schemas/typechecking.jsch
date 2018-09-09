@@ -1,0 +1,22 @@
+{
+    "links": [
+        {
+            "rel": "new_user",
+            "href": "http://localhost:8080/bank",
+            "title": "new user",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "required": ["user", "password"],
+                "properties": {
+                    "user": { "type": "string"},
+                    "password": { "type": "string" }
+                },
+                "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "new_user_response.jsch#"
+            }
+        }
+    ]
+}
