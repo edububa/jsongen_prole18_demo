@@ -15,7 +15,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     mkdir ~/bin &> /dev/null
     mv kerl ~/bin &> /dev/null
     export PATH=$PATH:~/bin
-    echo "export PATH=$PATH:~/bin" >> .bashrc
+    # echo "export PATH=$PATH:~/bin" >> .bashrc
 fi
 if [ "$?" -ne 0 ]; then
     echo "Error" >&2
