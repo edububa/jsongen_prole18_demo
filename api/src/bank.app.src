@@ -1,7 +1,7 @@
 %%-*- mode: erlang -*-
-{application, links,
+{application, bank,
  [
-  {description, "links"},
+  {description, "bank"},
   {vsn, "1"},
   {modules, []},
   {registered, []},
@@ -13,7 +13,7 @@
                   mochiweb,
                   webmachine
                  ]},
-  {mod, { links_app, []}},
+  {mod, { bank_app, []}},
   {env, [
       {web_ip, "0.0.0.0"},
       {web_port, 8080}

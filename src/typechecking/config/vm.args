@@ -1,6 +1,0 @@
--name typechecking
-
--setcookie typechecking_cookie
-
-+K true
-+A30

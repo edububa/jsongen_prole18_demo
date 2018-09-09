@@ -76,17 +76,17 @@ echo "Installing QuickCheck R17... "
 cd *Quviq* &> /dev/null
 mkdir ~/.QC
 erl -noshell -eval "eqc_install:install(\"~/.QC\")."
-if [ "$?" -ne 0 ]; then
-    echo "Error" >&2
-    exit 1
-fi
+# if [ "$?" -ne 0 ]; then
+#     echo "Error" >&2
+#     exit 1
+# fi
 
 echo "Registering your QuickCheck key... "
 erl -noshell -eval "eqc:registration(\"$key\")."
-if [ "$?" -ne 0 ]; then
-    echo "Error" >&2
-    exit 1
-fi
+# if [ "$?" -ne 0 ]; then
+#     echo "Error" >&2
+#     exit 1
+# fi
 
 cd ..
 
@@ -101,7 +101,7 @@ echo "Done"
 
 echo "Building jsongen... "
 cd jsongen
-make compile
+make install
 if [ "$?" -ne 0 ]; then
     echo "Error" >&2
     exit 1

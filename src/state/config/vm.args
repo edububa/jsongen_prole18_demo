@@ -1,6 +1,0 @@
--name state
-
--setcookie state_cookie
-
-+K true
-+A30

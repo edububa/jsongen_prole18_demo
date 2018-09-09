@@ -1,4 +1,4 @@
--module(typechecking_app).
+-module(bank_app).
 
 -behaviour(application).
 -export([
@@ -7,7 +7,7 @@
 ]).
 
 start(_Type, _StartArgs) ->
-    typechecking_sup:start_link().
+    bank_sup:start_link().
 
 stop(_State) ->
     ok.
