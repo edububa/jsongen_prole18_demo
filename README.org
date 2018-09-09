@@ -13,7 +13,7 @@
 export PATH=$PATH:~/bin         # for kerl, only on Linux installations
 export PATH=/Users/luis/.cache/rebar3/bin:$PATH # rebar3 binary
  #+END_SRC
-   To activate a erlang 17.0 installed with kerl use:
+   To activate erlang 17.0 installed with kerl use:
 #+BEGIN_SRC shell
 . ~/kerl/17.0/activate
 #+END_SRC
