@@ -7,7 +7,7 @@
    - [[https://github.com/erlang/rebar3][rebar3]]
    - ~Quviq's QuickCheck R17~
    - [[https://github.com/fredlund/jsongen][jsongen]]
-   If you want to use kerl and rebar3 afterwords you will need to add
+   To use kerl and rebar3 afterwords you will need to add
    these lines to your shell configuration file:
  #+BEGIN_SRC shell
 export PATH=$PATH:~/bin         # for kerl, only on Linux installations
