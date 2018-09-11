@@ -103,18 +103,22 @@ class Balances(Resource):
     def post(self):
         args = parser_post_user.parse_args()
         user = args['user']
-        if user == "":
-            return error(422, "Empty string not permitted"), 422
         password = args['password']
-        if user is not None and password is not None:
-            user = user.replace(" ", "-")
-            if user not in balances:
-                balances[user] = {}
-                return {"user" : user}, 201, {'Content-Location': request.base_url + user}
-            else:
-                return error(409, "user already exists"), 409
-        else:
-            return error(422, "user and/or password missing"), 422
+        if user is None:
+            return erro(422, "user attribute missing"), 422
+        if password is None:
+            return erro(422, "password attribute missing"), 422
+        if user == "":
+            return error(422, "Username as empty string not permitted"), 422
+        if password == "":
+            return error(422, "Password as empty string not permitted"), 422
+        # if user.count(" ") > 0:
+        #     return error(422, "Username can't have spaces"), 422
+        user = user.replace(" ", "-")
+        if user in balances:
+            return error(409, "user already exists"), 409
+        balances[user] = {}
+        return {"user" : user}, 201, {'Content-Location': request.base_url + user}
 
 api.add_resource(Balances, Balances.location)
 api.add_resource(UserAccounts, Balances.location + UserAccounts.location)
