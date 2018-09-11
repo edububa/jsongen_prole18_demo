@@ -1,2 +1,2 @@
 flask
-flask_rest
+flask_restful

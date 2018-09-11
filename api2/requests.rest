@@ -1,3 +1,4 @@
+#Create user
 POST http://127.0.0.1:5000/bank/users/
 Content-Type: application/json
 
@@ -21,10 +22,38 @@ Content-Type: application/json
   "quantity": 3
 }
 
+# Get balance
+GET http://127.0.0.1:5000/bank/users/aa/accounts/trabajo
 # Withdraw
 POST http://127.0.0.1:5000/bank/users/aa/accounts/trabajo
 Content-Type: application/json
 {
   "operation": "withdraw",
   "quantity": 3
+}
+# Now, we are going to check transfer operation
+#Create user
+POST http://127.0.0.1:5000/bank/users/
+Content-Type: application/json
+
+{
+  "user": "bb",
+  "password": "pass"
+}
+
+# Create new user and account
+POST http://127.0.0.1:5000/bank/users/bb/accounts/
+Content-Type: application/json
+{
+  "account_name": "trabajo"
+}
+
+# Transfer
+POST http://127.0.0.1:5000/bank/users/aa/accounts/trabajo
+Content-Type: application/json
+{
+  "operation": "transfer",
+  "quantity": 3,
+  "to_user": "bb",
+  "to_account": "trabajo"
 }
