@@ -103,9 +103,9 @@ class Balances(Resource):
         user = args['user']
         password = args['password']
         if user is None:
-            return erro(422, "user attribute missing"), 422
+            return error(422, "user attribute missing"), 422
         if password is None:
-            return erro(422, "password attribute missing"), 422
+            return error(422, "password attribute missing"), 422
         if user == "":
             return error(422, "Username as empty string not permitted"), 422
         if password == "":

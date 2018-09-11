@@ -1,0 +1,69 @@
+{
+    "links": [
+        {
+            "rel": "new_user",
+            "href": "http://localhost:5000/bank/users/",
+            "title": "new user",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "required": ["user", "password"],
+                "properties": {
+                    "user": {
+                        "quickcheck": {
+                            "name": "bank_generators:gen_user"
+                        }
+                    },
+                    "password": {
+                        "quickcheck": {
+                            "name": "bank_generators:gen_password"
+                        }
+                    },
+                },
+                "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "new_user_response.jsch#"
+            }
+        },
+        {
+            "rel": "new_user_already_exists",
+            "href": "http://localhost:5000/bank/users/",
+            "title": "new user_already_exists",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "required": ["user", "password"],
+                "properties": {
+                    "user": { "enum": ["usuario0"] },
+                    "password": {
+                        "quickcheck": {
+                            "name": "bank_generators:gen_password"
+                        }
+                    },
+                },
+                "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "new_user_already_exists_response.jsch#"
+            }
+        },
+        {
+            "rel": "new_user_wrong_body",
+            "href": "http://localhost:5000/bank/users/",
+            "title": "new user_wrong_body",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "required": ["user"],
+                "properties": {
+                    "user": { "enum": ["usuario20"] }
+                },
+                "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "new_user_wrong_body.jsch#"
+            }
+        }
+    ]
+}

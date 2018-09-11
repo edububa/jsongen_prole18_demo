@@ -2,7 +2,7 @@
     "links": [
         {
             "rel": "new_user",
-            "href": "http://localhost:8080/bank",
+            "href": "http://127.0.0.1:5000/bank/users/",
             "title": "new user",
             "method": "POST",
             "schema": {
@@ -15,7 +15,7 @@
                 "additionalProperties": false
             },
             "targetSchema": {
-                "$ref": "new_user_response.jsch#"
+                "$ref": "typechecking_response.jsch#"
             }
         }
     ]

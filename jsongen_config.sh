@@ -2,7 +2,8 @@
 
 # installing and compiling de correct erlang version...
 DEPS="gcc libssl-dev make automake autoconf libncurses5-dev unzip"
-ERL_V="17.0"
+ERL_V="20.0"
+export KERL_CONFIGURE_OPTIONS="--with-javac"
 
 echo -n "Installing kerl... "
 if [ "$(uname)" == "Darwin" ]; then
@@ -53,6 +54,7 @@ cd ..
 # installing QC
 echo -n "Downloading Quviq's QuickCheck R17... "
 wget http://quviq-licencer.com/downloads/eqcR17.zip &> /dev/null
+# wget http://quviq-licencer.com/downloads/eqcR20.zip &> /dev/null
 if [ "$?" -ne 0 ]; then
     echo "Error" >&2
     exit 1
