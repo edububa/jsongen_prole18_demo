@@ -18,12 +18,14 @@ parser_account = reqparse.RequestParser()
 parser_account.add_argument('operation', type=str)
 parser_account.add_argument('quantity', type=int)
 parser_account.add_argument('to_user', type=str)
-parser_account.add_argument('to_account', type=str)
+parser_account.add_argument('to_account', type=int)
 
 parser_create_account = reqparse.RequestParser()
 parser_create_account.add_argument('account_name', type=str)
 
 operations = ["deposit", "withdraw", "transfer"]
+account_id = 0
+
 
 def error(status, message=""):
     return {"status": status, "message": message}
@@ -68,7 +70,7 @@ class SingleAccount(Resource):
                 return error(422, "to_account: Destination user necessary for transfer operation"), 422
             if to_user not in balances:
                 return error(404, "user {} not found".format(to_user)), 404
-            if to_account not in balances[user]:
+            if to_account not in balances[to_user]:
                 return error(404, "account {} of user {} not found".format(to_account, to_user)), 404
             if (balances[user][account] - quantity) < 0:
                 return error(409, "Aborted. Negative balance after withdraw"),  409
@@ -81,18 +83,14 @@ class SingleAccount(Resource):
 class UserAccounts(Resource):
     location = "<string:user>/accounts/"
     def post(self, user):
+        global account_id
         if user not in balances:
             return error(404, "user {} not found".format(user)), 404
-        args = parser_create_account.parse_args()
-        account = args['account_name']
-        if account is None:
-            return error(422, "account_name attribute missing"), 422
-        if account in balances[user]:
-            return error(409, "account {} of user {}  already exists".format(account, user)), 409
-        balances[user][account] = 0
-        return { "account_name" : account,
-                 "balance": balances[user][account]
-                 }, 201, {'Content-Location': "{}{}".format(request.base_url, account)}
+        account_id += 1
+        balances[user][account_id] = 0
+        return { "account_id" : account_id,
+                 "balance": balances[user][account_id]
+                 }, 201, {'Content-Location': "{}{}".format(request.base_url, account_id)}
 
 
 class Balances(Resource):
@@ -122,7 +120,7 @@ class Balances(Resource):
 
 api.add_resource(Balances, Balances.location)
 api.add_resource(UserAccounts, Balances.location + UserAccounts.location)
-api.add_resource(SingleAccount, Balances.location + UserAccounts.location + "<string:account>")
+api.add_resource(SingleAccount, Balances.location + UserAccounts.location + "<int:account>")
 
 if __name__ == '__main__':
     app.run(debug=True)

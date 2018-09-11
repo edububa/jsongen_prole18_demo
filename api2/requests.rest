@@ -10,12 +10,8 @@ Content-Type: application/json
 
 # Create account
 POST http://127.0.0.1:5000/bank/users/aa/accounts/
-Content-Type: application/json
-{
-  "account_name": "trabajo"
-}
 # Deposit
-POST http://127.0.0.1:5000/bank/users/aa/accounts/trabajo
+POST http://127.0.0.1:5000/bank/users/aa/accounts/1
 Content-Type: application/json
 {
   "operation": "deposit",
@@ -23,9 +19,9 @@ Content-Type: application/json
 }
 
 # Get balance
-GET http://127.0.0.1:5000/bank/users/aa/accounts/trabajo
+GET http://127.0.0.1:5000/bank/users/aa/accounts/1
 # Withdraw
-POST http://127.0.0.1:5000/bank/users/aa/accounts/trabajo
+POST http://127.0.0.1:5000/bank/users/aa/accounts/1
 Content-Type: application/json
 {
   "operation": "withdraw",
@@ -43,17 +39,14 @@ Content-Type: application/json
 
 # Create new user and account
 POST http://127.0.0.1:5000/bank/users/bb/accounts/
-Content-Type: application/json
-{
-  "account_name": "trabajo"
-}
-
 # Transfer
-POST http://127.0.0.1:5000/bank/users/aa/accounts/trabajo
+POST http://127.0.0.1:5000/bank/users/aa/accounts/1
 Content-Type: application/json
 {
   "operation": "transfer",
   "quantity": 3,
   "to_user": "bb",
-  "to_account": "trabajo"
+  "to_account": 2
 }
+# Get other account balance
+GET http://127.0.0.1:5000/bank/users/bb/accounts/2
