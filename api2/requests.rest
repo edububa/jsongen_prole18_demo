@@ -1,0 +1,30 @@
+POST http://127.0.0.1:5000/bank/users/
+Content-Type: application/json
+
+{
+  "user": "aa",
+  "password": "pass"
+}
+
+
+# Create account
+POST http://127.0.0.1:5000/bank/users/aa/accounts/
+Content-Type: application/json
+{
+  "account_name": "trabajo"
+}
+# Deposit
+POST http://127.0.0.1:5000/bank/users/aa/accounts/trabajo
+Content-Type: application/json
+{
+  "operation": "deposit",
+  "quantity": 3
+}
+
+# Withdraw
+POST http://127.0.0.1:5000/bank/users/aa/accounts/trabajo
+Content-Type: application/json
+{
+  "operation": "withdraw",
+  "quantity": 3
+}
