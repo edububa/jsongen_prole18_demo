@@ -20,9 +20,9 @@ $ . ~/kerl/17.0/activate
 ** Execution
    First you need to start de API for testing.
 
-   Once it's started change to the ~schemas~ directory, and type:
+   Once it's started change to the example ~examples/[example]~ directory, and type:
    #+BEGIN_SRC shell
-$ make compile
+$ rebar3 build
    #+END_SRC
 
    When it finishes just type:
