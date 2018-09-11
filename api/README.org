@@ -1,25 +1,12 @@
-* Simple bank REST API
-** Operations
+* Endpoints
 
    |----------------+--------------------+--------+----------------------|
    | Operation      | URI                | HTTP M | Body                 |
    |----------------+--------------------+--------+----------------------|
    | Create user    | /bank              | POST   | {"user", "passwd"}   |
-   # | Create account | /bank/user         | POST   | _                    |
-   # | Deposit        | /bank/user/account | POST   | {"quantity"}         |
-   # | Withdraw       | /bank/user/account | POST   | {"quantity"}         |
-   # | Transfer       | /bank/user/account | POST   | {"quantity", "user"} |
-   # | Consult        | /bank/user/account | GET    | _                    |
+   | Create account | /bank/user         | POST   | _                    |
+   | Deposit        | /bank/user/account | POST   | {"quantity"}         |
+   | Withdraw       | /bank/user/account | POST   | {"quantity"}         |
+   | Transfer       | /bank/user/account | POST   | {"quantity", "user"} |
+   | Consult        | /bank/user/account | GET    | _                    |
    |----------------+--------------------+--------+----------------------|
-
-** Use
-   First you need to compile the API:
-   #+BEGIN_SRC shell
-$ rebar3 compile
-   #+END_SRC
-   And then you just type:
-
-#+BEGIN_SRC shell
-$ rebar3 shell
-#+END_SRC
-   to run it
