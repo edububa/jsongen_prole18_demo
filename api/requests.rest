@@ -1,5 +1,5 @@
 #Create user
-POST http://127.0.0.1:5000/bank/users/
+POST http://127.0.0.1:5000/bank/users
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 
 
 # Create account
-POST http://127.0.0.1:5000/bank/users/aa/accounts/
+POST http://127.0.0.1:5000/bank/users/aa/accounts
 # Deposit
 POST http://127.0.0.1:5000/bank/users/aa/accounts/1
 Content-Type: application/json
@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 # Create new user and account
-POST http://127.0.0.1:5000/bank/users/bb/accounts/
+POST http://127.0.0.1:5000/bank/users/bb/accounts
 # Transfer
 POST http://127.0.0.1:5000/bank/users/aa/accounts/1
 Content-Type: application/json

@@ -4,6 +4,7 @@ import json
 
 app = Flask(__name__)
 api = Api(app)
+app.url_map.strict_slashes=False
 
 balances = {}
 
@@ -83,7 +84,7 @@ class SingleAccount(Resource):
 
 
 class UserAccounts(Resource):
-    location = "<string:user>/accounts/"
+    location = "/<string:user>/accounts"
     def post(self, user):
         global account_id
         if user not in balances:
@@ -97,7 +98,7 @@ class UserAccounts(Resource):
 
 
 class Balances(Resource):
-    location = "/bank/users/"
+    location = "/bank/users"
     def get(self):
         return { "balances" : balances }
 
@@ -106,9 +107,9 @@ class Balances(Resource):
         user = args['user']
         password = args['password']
         if user is None:
-            return error(422, "user attribute missing"), 422
+            return erro(422, "user attribute missing"), 422
         if password is None:
-            return error(422, "password attribute missing"), 422
+            return erro(422, "password attribute missing"), 422
         if user == "":
             return error(422, "Username as empty string not permitted"), 422
         if password == "":
@@ -123,7 +124,7 @@ class Balances(Resource):
 
 api.add_resource(Balances, Balances.location)
 api.add_resource(UserAccounts, Balances.location + UserAccounts.location)
-api.add_resource(SingleAccount, Balances.location + UserAccounts.location + "<int:account>")
+api.add_resource(SingleAccount, Balances.location + UserAccounts.location + "/<int:account>")
 
 if __name__ == '__main__':
     app.run(debug=True)
