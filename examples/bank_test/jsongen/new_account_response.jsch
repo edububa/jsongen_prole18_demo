@@ -1,16 +1,18 @@
 {
 
     "type": "object",
-    "required": ["account_id", "balance"],
+    "required": ["accountid", "balance", "owner"],
     "status": 201,
     "properties": {
-        "account_name": { "type": "string" },
-        "balance": { "type": "integer" }
+        "accountid": { "type": "integer" },
+        "balance": { "type": "integer" },
+        "owner": { "type": "string" }
     },
+    "additionalProperties": false,
     "links": [
         {
             "rel": "consult",
-            "href": "http:/localhost:5000/bank/users/{owner}/accounts/{account_id}/",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
             "title": "consult account",
             "method": "GET",
             "targetSchema": {
@@ -19,7 +21,7 @@
         },
         {
             "rel": "deposit",
-            "href": "http:/localhost:5000/bank/users/{owner}/accounts/{account_id}/",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
             "title": "deposit",
             "method": "POST",
             "targetSchema": {
@@ -29,12 +31,13 @@
                 "type": "object",
                 "required": ["operation", "quantity"],
                 "operation": "deposit",
-                "quantity": { "type": "integer" }
+                "quantity": { "type": "integer" },
+                "additionalProperties": false
             }
         },
         {
             "rel": "withdraw",
-            "href": "http:/localhost:5000/bank/users/{owner}/accounts/{account_id}/",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
             "title": "withdraw",
             "method": "POST",
             "targetSchema": {
@@ -44,7 +47,8 @@
                 "type": "object",
                 "required": ["operation", "quantity"],
                 "operation": "withdraw",
-                "quantity": { "type": "integer" }
+                "quantity": { "type": "integer" },
+                "additionalProperties": false
             }
         }
     ]
