@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 # Now, we are going to check transfer operation
 #Create user
-POST http://127.0.0.1:5000/bank/users
+POST http://127.0.0.1:5000/bank/users/
 Content-Type: application/json
 
 {

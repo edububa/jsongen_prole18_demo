@@ -4,6 +4,7 @@ import json
 
 app = Flask(__name__)
 api = Api(app)
+app.url_map.strict_slashes=False
 
 balances = {}
 
