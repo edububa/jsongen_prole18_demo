@@ -3,9 +3,20 @@
     "required": ["accountid", "balance", "owner"],
     "status": 201,
     "properties": {
-        "accountid": { "type": "integer" },
+        "accountid": { "type": "string" },
         "balance": { "type": "integer" },
         "owner": { "type": "string" }
     },
-    "additionalProperties": false
+    "additionalProperties": false,
+    "links": [
+        {
+            "rel": "consult",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+            "title": "consult account",
+            "method": "GET",
+            "targetSchema": {
+                "$ref": "consult_account_response.jsch#"
+            }
+        }
+    ]
 }
