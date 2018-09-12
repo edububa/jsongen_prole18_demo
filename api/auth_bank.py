@@ -76,7 +76,6 @@ class SingleAccount(Resource):
             return error(409, "operation {} not recognized".format(operation)),  409
         if operation == "deposit":
             balances[user][account] += quantity
-            print(balances)
         if operation == "withdraw":
             if (balances[user][account] - quantity) < 0:
                 return error(409, "Aborted. Negative balance after withdraw"),  409
@@ -123,7 +122,6 @@ class Balances(Resource):
     def post(self):
         args = parser_post_user.parse_args()
         user = args['user']
-        print("user", user)
         password = args['password']
         if user is None:
             return error(422, "user attribute missing"), 422
