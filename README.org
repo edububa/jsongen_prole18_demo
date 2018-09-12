@@ -1,11 +1,11 @@
-* Tool Demonstration: Testing JSON Web Services Using ~jsongen~
-** ~jsongen~ environment configuration
+* Tool Demonstration: Testing JSON Web Services Using *jsongen*
+** *jsongen* environment configuration
    First of all execute the script ~jsongen_config.sh~. This script
    will install:
    - [[https://github.com/kerl/kerl][kerl]]
-   - ~erlang 17.0~
+   - ~erlang 20.0~
    - [[https://github.com/erlang/rebar3][rebar3]]
-   - ~Quviq's QuickCheck R17~
+   - ~Quviq's QuickCheck R20~
    - [[https://github.com/fredlund/jsongen][jsongen]]
    To use kerl and rebar3 afterwords you will need to add
    these lines to your shell configuration file:
@@ -13,16 +13,16 @@
 export PATH=$PATH:~/bin         # for kerl, only on Linux installations
 export PATH=/Users/luis/.cache/rebar3/bin:$PATH # rebar3 binary
    #+END_SRC
-   To activate erlang 17.0 installed with kerl use:
+   To activate erlang 20.0 installed with kerl use:
    #+BEGIN_SRC shell
-$ . ~/kerl/17.0/activate
+$ . ~/kerl/20.0/activate
    #+END_SRC
 ** Execution
    First you need to start de API for testing.
 
-   Once it's started change to the ~schemas~ directory, and type:
+   Once it's started change to the example ~examples/[example]~ directory, and type:
    #+BEGIN_SRC shell
-$ make compile
+$ rebar3 build
    #+END_SRC
 
    When it finishes just type:

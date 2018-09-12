@@ -1,0 +1,21 @@
+* Bank test jsongen example
+** Project description
+   - ~jsongen~ this directory contains the JSON Schemas that describes
+     the protocol of the bank API.
+   - ~src~ this directory contains the code of the erlang generators,
+     the model and the test execution function.
+** Execution
+   Compile the project using:
+   #+BEGIN_SRC shell
+make compile
+   #+END_SRC
+   To execute the test open a ~rebar3~ shell with the command:
+   #+BEGIN_SRC shell
+rebar3 shell --name [node_name]
+   #+END_SRC
+
+   and type:
+   #+BEGIN_SRC
+1> bank_test_app:test().
+   #+END_SRC
+   in ~rebar3~.
