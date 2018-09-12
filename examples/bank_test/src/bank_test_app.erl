@@ -8,7 +8,7 @@
 -behaviour(application).
 
 %% Application callbacks
--export([start/2, test/0, stop/1, create_first_user/0]).
+-export([start/2, test/0, stop/1, create_first_user/0, test_with_model/0]).
 -import(c, [cd/1, cmd/1]).
 %% -import(bank_generators, [gen_user/2]).
 %%====================================================================
@@ -27,6 +27,11 @@ test() ->
     c:cd("jsongen"),
     gen_server_users:start(),
     js_links_machine:run_statem(["new_user.jsch"]),
+    cd("..").
+
+test_with_model() ->
+    c:cd("jsongen"),
+    js_links_machine:run_statem("../src/bank_model.erl", ["new_user.jsch"]),
     cd("..").
 
 %%--------------------------------------------------------------------

@@ -12,4 +12,4 @@ gen_user(_, _) ->
 %% TODO implement better password generator
 gen_password(_, _) ->
     %% eqc_gen:elements([integer_to_list(1234)]).
-    ?SUCHTHAT(Xs, eqc_gen:utf8q(), size(Xs) > 10).
+    ?SUCHTHAT(Xs, eqc_gen:utf8(), size(Xs) > 10).
