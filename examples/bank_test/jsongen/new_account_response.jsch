@@ -1,10 +1,51 @@
 {
 
     "type": "object",
-    "required": ["account_name", "balance"],
+    "required": ["account_id", "balance"],
     "status": 201,
     "properties": {
         "account_name": { "type": "string" },
         "balance": { "type": "integer" }
-    }
+    },
+    "links": [
+        {
+            "rel": "consult",
+            "href": "http:/localhost:5000/bank/users/{owner}/accounts/{account_id}/",
+            "title": "consult account",
+            "method": "GET",
+            "targetSchema": {
+                "$ref": "account_response.jsch#"
+            }
+        },
+        {
+            "rel": "deposit",
+            "href": "http:/localhost:5000/bank/users/{owner}/accounts/{account_id}/",
+            "title": "deposit",
+            "method": "POST",
+            "targetSchema": {
+                "$ref": "account_response.jsch#"
+            },
+            "schema": {
+                "type": "object",
+                "required": ["operation", "quantity"],
+                "operation": "deposit",
+                "quantity": { "type": "integer" }
+            }
+        },
+        {
+            "rel": "withdraw",
+            "href": "http:/localhost:5000/bank/users/{owner}/accounts/{account_id}/",
+            "title": "withdraw",
+            "method": "POST",
+            "targetSchema": {
+                "$ref": "account_response.jsch#"
+            },
+            "schema": {
+                "type": "object",
+                "required": ["operation", "quantity"],
+                "operation": "withdraw",
+                "quantity": { "type": "integer" }
+            }
+        }
+    ]
 }

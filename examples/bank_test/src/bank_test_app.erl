@@ -8,7 +8,7 @@
 -behaviour(application).
 
 %% Application callbacks
--export([start/2, test/0, stop/1]).
+-export([start/2, test/0, stop/1, create_first_user/0]).
 -import(c, [cd/1, cmd/1]).
 %% -import(bank_generators, [gen_user/2]).
 %%====================================================================
@@ -23,6 +23,7 @@ start(_StartType, _StartArgs) ->
     bank_test_sup:start_link().
 
 test() ->
+    {ok, _} = create_first_user(),
     c:cd("jsongen"),
     gen_server_users:start(),
     js_links_machine:run_statem(["new_user.jsch"]),
@@ -35,3 +36,8 @@ stop(_State) ->
 %%====================================================================
 %% Internal functions
 %%====================================================================
+create_first_user() ->
+    httpc:request(post, {"http://localhost:5000/bank/users/", [],
+                         "application-json",
+                         "{\"user\": \"user0\", \"password\": \"1234\"}"},
+                  [], []).

@@ -29,13 +29,13 @@
         {
             "rel": "new_user_already_exists",
             "href": "http://localhost:5000/bank/users/",
-            "title": "new user_already_exists",
+            "title": "new user already exists",
             "method": "POST",
             "schema": {
                 "type": "object",
                 "required": ["user", "password"],
                 "properties": {
-                    "user": { "enum": ["usuario0"] },
+                    "user": { "enum": ["user0"] },
                     "password": {
                         "quickcheck": {
                             "name": "bank_generators:gen_password"
@@ -51,13 +51,13 @@
         {
             "rel": "new_user_wrong_body",
             "href": "http://localhost:5000/bank/users/",
-            "title": "new user_wrong_body",
+            "title": "new user wrong body",
             "method": "POST",
             "schema": {
                 "type": "object",
                 "required": ["user"],
                 "properties": {
-                    "user": { "enum": ["usuario20"] }
+                    "user": { "enum": ["user20"] }
                 },
                 "additionalProperties": false
             },
