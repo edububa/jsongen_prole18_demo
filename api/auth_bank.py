@@ -31,13 +31,31 @@ account_id = 0
 def error(status, message=""):
     return {"status": status, "message": message}
 
+parser_direct_account = reqparse.RequestParser()
+parser_direct_account.add_argument("user", type=str)
+
+class Accounts(Resource):
+    def get(self, account):
+        args = parser_direct_account.parse_args()
+        user = args['user']
+        if user is None:
+            return error(422, "user attribute not found"), 422
+        if user not in balances:
+            return error(404, "user {} not found".format(user)), 404
+        if account not in balances[user]:
+            return error(404, "account {} of user {} not found".format(account, user)), 404
+        return {"accountid": account,
+                "owner": user,
+                "balance": balances[user][account]}
+
+
 class SingleAccount(Resource):
     def get(self, user, account):
         if user not in balances:
             return error(404, "user {} not found".format(user)), 404
         if account not in balances[user]:
-            return error(404, "account {} of user {} not found".format(acccount, user)), 404
-        return {"accountid": account,
+            return error(404, "account {} of user {} not found".format(account, user)), 404
+        return {"accountid": str(account),
                 "owner": user,
                 "balance": balances[user][account]}
 
@@ -78,7 +96,7 @@ class SingleAccount(Resource):
                 return error(409, "Aborted. Negative balance after withdraw"),  409
             balances[user][account] -= quantity
             balances[to_user][to_account] += quantity
-        return {"accountid": account,
+        return {"accountid": str(account),
                 "owner": user,
                 "balance": balances[user][account]}, 201
 
@@ -91,7 +109,7 @@ class UserAccounts(Resource):
             return error(404, "user {} not found".format(user)), 404
         account_id += 1
         balances[user][account_id] = 0
-        return { "accountid" : account_id,
+        return { "accountid" : str(account_id),
                  "owner": user,
                  "balance": balances[user][account_id]
                  }, 201, {'Content-Location': "{}{}".format(request.base_url, account_id)}
@@ -105,6 +123,7 @@ class Balances(Resource):
     def post(self):
         args = parser_post_user.parse_args()
         user = args['user']
+        print("user", user)
         password = args['password']
         if user is None:
             return error(422, "user attribute missing"), 422
