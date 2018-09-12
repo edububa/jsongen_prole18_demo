@@ -1,0 +1,30 @@
+{
+    "links": [
+        {
+            "rel": "new_user",
+            "href": "http://localhost:5000/bank/users/",
+            "title": "new user",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "required": ["user", "password"],
+                "properties": {
+                    "user": {
+                        "quickcheck": {
+                            "name": "bank_generators:gen_user"
+                        }
+                    },
+                    "password": {
+                        "quickcheck": {
+                            "name": "bank_generators:gen_password"
+                        }
+                    },
+                },
+                "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "new_user_response.jsch#"
+            }
+        }
+    ]
+}
