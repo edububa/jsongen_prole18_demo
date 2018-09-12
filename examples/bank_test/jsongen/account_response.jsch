@@ -1,11 +1,25 @@
 {
-    "type": "object",
-    "required": ["accountid", "balance", "owner"],
-    "status": 201,
-    "properties": {
-        "accountid": { "type": "string" },
-        "balance": { "type": "integer" },
-        "owner": { "type": "string" }
-    },
-    "additionalProperties": false
+    "oneOf" : [
+        {
+            "type": "object",
+            "required": ["accountid", "balance", "owner"],
+            "status": 201,
+            "properties": {
+                "accountid": { "type": "string" },
+                "balance": { "type": "integer" },
+                "owner": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": ["status", "message"],
+            "status": 409,
+            "properties": {
+                "status": { "type": "integer" },
+                "message": { "type": "string" }
+            },
+            "additionalProperties": false
+        }
+    ]
 }
