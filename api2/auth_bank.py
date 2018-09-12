@@ -37,6 +37,7 @@ class SingleAccount(Resource):
         if account not in balances[user]:
             return error(404, "account {} of user {} not found".format(acccount, user)), 404
         return {"account_name": account,
+                "owner": user,
                 "balance": balances[user][account]}
 
     def post(self, user, account):
@@ -77,6 +78,7 @@ class SingleAccount(Resource):
             balances[user][account] -= quantity
             balances[to_user][to_account] += quantity
         return {"account_name": account,
+                "owner": user,
                 "balance": balances[user][account]}, 201
 
 
@@ -89,6 +91,7 @@ class UserAccounts(Resource):
         account_id += 1
         balances[user][account_id] = 0
         return { "account_id" : account_id,
+                 "owner": user,
                  "balance": balances[user][account_id]
                  }, 201, {'Content-Location': "{}{}".format(request.base_url, account_id)}
 
