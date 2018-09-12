@@ -1,9 +1,9 @@
 %%%-------------------------------------------------------------------
-%% @doc bank_test public API
+%% @doc bank_test_with_model public API
 %% @end
 %%%-------------------------------------------------------------------
 
--module(bank_test_app).
+-module(bank_test_with_model_app).
 
 -behaviour(application).
 
@@ -12,19 +12,19 @@
          test/0,
          stop/1]).
 -import(c, [cd/1, cmd/1]).
-%% -import(bank_generators, [gen_user/2]).
 %%====================================================================
 %% API
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
-    bank_test_sup:start_link().
+    gen_server_users:start(),
+    bank_test_with_model_sup:start_link().
 
 test() ->
-    {ok, _} = create_first_user(),
+    io:format("uetnhauensaohuesoaoehu"),
     c:cd("jsongen"),
-    js_links_machine:run_statem(["new_user.jsch"]),
-    cd("..").
+    js_links_machine:run_statem(bank_model, ["new_user.jsch"]),
+    c:cd("..").
 
 %%--------------------------------------------------------------------
 stop(_State) ->
@@ -33,8 +33,3 @@ stop(_State) ->
 %%====================================================================
 %% Internal functions
 %%====================================================================
-create_first_user() ->
-    httpc:request(post, {"http://localhost:5000/bank/users/", [],
-                         "application-json",
-                         "{\"user\":\"user0\", \"password\": \"1234\"}"},
-                  [], []).
