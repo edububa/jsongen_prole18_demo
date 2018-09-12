@@ -1,9 +1,11 @@
 {
     "type": "object",
-    "required": ["account_id", "balance"],
+    "required": ["accountid", "balance", "owner"],
     "status": 201,
     "properties": {
-        "account_name": { "type": "string" },
-        "balance": { "type": "integer" }
-    }
+        "accountid": { "type": "string" },
+        "balance": { "type": "integer" },
+        "owner": { "type": "string" }
+    },
+    "additionalProperties": false
 }

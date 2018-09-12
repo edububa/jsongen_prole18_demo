@@ -1,10 +1,9 @@
 {
-
     "type": "object",
     "required": ["accountid", "balance", "owner"],
     "status": 201,
     "properties": {
-        "accountid": { "type": "integer" },
+        "accountid": { "type": "string" },
         "balance": { "type": "integer" },
         "owner": { "type": "string" }
     },
@@ -16,7 +15,7 @@
             "title": "consult account",
             "method": "GET",
             "targetSchema": {
-                "$ref": "account_response.jsch#"
+                "$ref": "consult_account_response.jsch#"
             }
         },
         {
@@ -24,15 +23,18 @@
             "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
             "title": "deposit",
             "method": "POST",
-            "targetSchema": {
-                "$ref": "account_response.jsch#"
-            },
             "schema": {
                 "type": "object",
                 "required": ["operation", "quantity"],
-                "operation": "deposit",
-                "quantity": { "type": "integer" },
+                "properties" : {
+                    "operation": { "oneOf": ["deposit"] },
+                    "quantity": { "type": "integer" },
+
+                },
                 "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "account_response.jsch#"
             }
         },
         {
@@ -40,15 +42,18 @@
             "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
             "title": "withdraw",
             "method": "POST",
-            "targetSchema": {
-                "$ref": "account_response.jsch#"
-            },
             "schema": {
                 "type": "object",
                 "required": ["operation", "quantity"],
-                "operation": "withdraw",
-                "quantity": { "type": "integer" },
+                "properties": {
+                    "operation": { "oneOf": ["withdraw"] },
+                    "quantity": { "type": "integer" },
+
+                },
                 "additionalProperties": false
+            }
+            "targetSchema": {
+                "$ref": "account_response.jsch#"
             }
         }
     ]
