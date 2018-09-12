@@ -37,7 +37,7 @@ class SingleAccount(Resource):
             return error(404, "user {} not found".format(user)), 404
         if account not in balances[user]:
             return error(404, "account {} of user {} not found".format(acccount, user)), 404
-        return {"account_name": account,
+        return {"accountid": account,
                 "owner": user,
                 "balance": balances[user][account]}
 
@@ -78,7 +78,7 @@ class SingleAccount(Resource):
                 return error(409, "Aborted. Negative balance after withdraw"),  409
             balances[user][account] -= quantity
             balances[to_user][to_account] += quantity
-        return {"account_name": account,
+        return {"accountid": account,
                 "owner": user,
                 "balance": balances[user][account]}, 201
 
@@ -91,7 +91,7 @@ class UserAccounts(Resource):
             return error(404, "user {} not found".format(user)), 404
         account_id += 1
         balances[user][account_id] = 0
-        return { "account_id" : account_id,
+        return { "accountid" : account_id,
                  "owner": user,
                  "balance": balances[user][account_id]
                  }, 201, {'Content-Location': "{}{}".format(request.base_url, account_id)}
