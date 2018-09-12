@@ -18,7 +18,7 @@
                         "quickcheck": {
                             "name": "bank_generators:gen_password"
                         }
-                    },
+                    }
                 },
                 "additionalProperties": false
             },
@@ -40,7 +40,7 @@
                         "quickcheck": {
                             "name": "bank_generators:gen_password"
                         }
-                    },
+                    }
                 },
                 "additionalProperties": false
             },

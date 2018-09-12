@@ -27,9 +27,8 @@
                 "type": "object",
                 "required": ["operation", "quantity"],
                 "properties" : {
-                    "operation": { "oneOf": ["deposit"] },
-                    "quantity": { "type": "integer" },
-
+                    "operation": { "oneOf": [ { "enum" : ["deposit"] } ] },
+                    "quantity": { "type": "integer" }
                 },
                 "additionalProperties": false
             },
@@ -46,12 +45,11 @@
                 "type": "object",
                 "required": ["operation", "quantity"],
                 "properties": {
-                    "operation": { "oneOf": ["withdraw"] },
-                    "quantity": { "type": "integer" },
-
+                    "operation": { "oneOf": [ { "enum" : ["withdraw"] } ] },
+                    "quantity": { "type": "integer" }
                 },
                 "additionalProperties": false
-            }
+            },
             "targetSchema": {
                 "$ref": "account_response.jsch#"
             }

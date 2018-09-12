@@ -19,7 +19,7 @@ parser_account = reqparse.RequestParser()
 parser_account.add_argument('operation', type=str)
 parser_account.add_argument('quantity', type=int)
 parser_account.add_argument('to_user', type=str)
-parser_account.add_argument('to_account', type=int)
+parser_account.add_argument('to_account', type=str)
 
 parser_create_account = reqparse.RequestParser()
 parser_create_account.add_argument('account_name', type=str)
@@ -112,7 +112,7 @@ class UserAccounts(Resource):
         return { "accountid" : str(account_id),
                  "owner": user,
                  "balance": balances[user][account_id]
-                 }, 201, {'Content-Location': "{}{}".format(request.base_url, account_id)}
+                 }, 201, {'Content-Location': "{}/{}".format(request.base_url, account_id)}
 
 
 class Balances(Resource):
@@ -139,7 +139,7 @@ class Balances(Resource):
         if user in balances:
             return error(409, "user already exists"), 409
         balances[user] = {}
-        return {"user" : user}, 201, {'Content-Location': request.base_url + user}
+        return {"user" : user}, 201, {'Content-Location': request.base_url + "/" + user}
 
 api.add_resource(Balances, Balances.location)
 api.add_resource(UserAccounts, Balances.location + UserAccounts.location)
