@@ -11,7 +11,7 @@ init(_) -> {ok, 0}.
 handle_call(Msg, _From, State) ->
     case Msg of
         {new} ->
-            {reply, State, integer_to_binary(State + 1)}
+            {reply, State + 1, State + 1}
     end.
 
 terminate(_,_) -> ok.
