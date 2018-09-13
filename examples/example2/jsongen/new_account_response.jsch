@@ -1,0 +1,58 @@
+{
+    "type": "object",
+    "required": ["accountid", "balance", "owner"],
+    "status": 201,
+    "properties": {
+        "accountid": { "type": "string" },
+        "balance": { "type": "integer" },
+        "owner": { "type": "string" }
+    },
+    "additionalProperties": false,
+    "links": [
+        {
+            "rel": "consult",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+            "title": "consult account",
+            "method": "GET",
+            "targetSchema": {
+                "$ref": "consult_account_response.jsch#"
+            }
+        },
+        {
+            "rel": "deposit",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+            "title": "deposit",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "required": ["operation", "quantity"],
+                "properties" : {
+                    "operation": { "oneOf": [ { "enum" : ["deposit"] } ] },
+                    "quantity": { "type": "integer" }
+                },
+                "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "deposit_response.jsch#"
+            }
+        },
+        {
+            "rel": "withdraw",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+            "title": "withdraw",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "required": ["operation", "quantity"],
+                "properties": {
+                    "operation": { "oneOf": [ { "enum" : ["withdraw"] } ] },
+                    "quantity": { "type": "integer" }
+                },
+                "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "withdraw_response.jsch#"
+            }
+        }
+    ]
+}

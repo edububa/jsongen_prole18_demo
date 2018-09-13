@@ -1,0 +1,15 @@
+{
+  "rel": "deposit",
+  "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+  "title": "deposit",
+  "method": "POST",
+  "schema": {
+    "type": "object",
+    "required": ["operation", "quantity"],
+    "properties" : {
+      "operation": { "oneOf": [ { "enum" : ["deposit"] } ] },
+      "quantity": { "type": "integer" }
+    },
+    "additionalProperties": false
+  }
+}

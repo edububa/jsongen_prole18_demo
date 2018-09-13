@@ -1,0 +1,15 @@
+{
+  "rel": "withdraw",
+  "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+  "title": "withdraw",
+  "method": "POST",
+  "schema": {
+    "type": "object",
+    "required": ["operation", "quantity"],
+    "properties": {
+      "operation": { "oneOf": [ { "enum" : ["withdraw"] } ] },
+      "quantity": { "type": "integer" }
+    },
+    "additionalProperties": false
+  }
+}

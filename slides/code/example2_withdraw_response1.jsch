@@ -1,0 +1,14 @@
+{
+  "oneOf" : [
+    {
+      "type": "object",
+      "required": ["accountid", "balance", "owner"],
+      "status": 201,
+      "properties": {
+        "accountid": { "type": "string" },
+        "balance": { "type": "integer" },
+        "owner": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+...

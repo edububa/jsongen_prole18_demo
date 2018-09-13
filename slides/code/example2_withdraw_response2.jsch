@@ -1,0 +1,13 @@
+...
+    {
+      "type": "object",
+      "required": ["status", "message"],
+      "status": 409,
+      "properties": {
+        "status": { "type": "integer" },
+        "message": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

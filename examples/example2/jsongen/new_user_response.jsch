@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "required": ["user"],
+    "status": 201,
+    "properties": {
+        "user": { "type": "string" }
+    },
+    "additionalProperties": false,
+    "links": [
+        {
+            "rel": "new_account",
+            "href": "http://localhost:5000/bank/users/{user}/accounts/",
+            "title": "new account",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+            },
+            "targetSchema": {
+                "$ref": "new_account_response.jsch#"
+            }
+        }
+    ]
+}

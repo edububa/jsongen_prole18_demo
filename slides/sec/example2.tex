@@ -1,5 +1,122 @@
 \section{Testing a web service protocol using jsongen}
 
-\begin{frame}{Testing a web service protocol using jsongen}
+\begin{frame}{Objectives and API description}
+  The main objective of this example is to give a general idea of how
+  to use the dynamic links descovering habilities of jsongen.
 
+  In this example we will test the protocol of the whole bank API.
+
+  The API operations:
+
+  \centering
+  \begin{tabular}{| l | l |}
+    \hline
+    \textbf{Operation} & \textbf{Resource identifiers} \\ \hline
+    new user           & /bank/users/                  \\ \hline
+    new account        & /bank/users/\{user\}/accounts/  \\ \hline
+    consult account    & /bank/users/\{owner\}/accounts/\{accountid\}/ \\ \hline
+    deposit            & /bank/users/\{owner\}/accounts/\{accountid\}/ \\ \hline
+    withdraw           & /bank/users/\{owner\}/accounts/\{accountid\}/ \\ \hline
+  \end{tabular}
+  \centering
+
+\end{frame}
+
+\begin{frame}{Operation: new account}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Operation} & new account \\ \hline
+    \textbf{URI}       & http://localhost:5000/bank/users/\{user\}/accounts/ \\ \hline
+    \textbf{Method}    & POST     \\ \hline
+    \textbf{Body}      & empty    \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example2_new_account.jsch}
+\end{frame}
+
+\begin{frame}{Operation: new account}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
+    \textbf{Status}    & 201 \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example2_new_account_response.jsch}
+\end{frame}
+
+\begin{frame}{Operation: consult account}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Operation} & consult account \\ \hline
+    \textbf{URI}       & http://localhost:5000/bank/users/\{owner\}/accounts/\{accountid\} \\ \hline
+    \textbf{Method}    & GET     \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example2_consult_account.jsch}
+\end{frame}
+
+\begin{frame}{Operation: consult account}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
+    \textbf{Status}    & 200 \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example2_consult_account_response.jsch}
+\end{frame}
+
+\begin{frame}{Operation: deposit}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Operation} & deposit \\ \hline
+    \textbf{URI}       & http://localhost:5000/bank/users/\{owner\}/accounts/\{accountid\} \\ \hline
+    \textbf{Method}    & POST     \\ \hline
+    \textbf{Body}      & operation: ``deposit'', quantity: integer \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example2_deposit.jsch}
+\end{frame}
+
+\begin{frame}{Operation: deposit}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
+    \textbf{Status}    & 201 \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example2_deposit_response.jsch}
+\end{frame}
+
+\begin{frame}{Operation: withdraw}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Operation} & withdraw \\ \hline
+    \textbf{URI}       & http://localhost:5000/bank/users/\{owner\}/accounts/\{accountid\} \\ \hline
+    \textbf{Method}    & POST     \\ \hline
+    \textbf{Body}      & operation: ``withdarw'', quantity: integer \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example2_withdraw.jsch}
+\end{frame}
+
+\begin{frame}{Operation: withdraw}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
+    \textbf{Status}    & 201 \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example2_withdraw_response1.jsch}
+\end{frame}
+
+\begin{frame}
+  \inputminted{js}{./code/example2_withdraw_response2.jsch}
 \end{frame}
