@@ -1,32 +1,95 @@
-* Tool Demonstration: Testing JSON Web Services Using *jsongen*
-** *jsongen* environment configuration
-   First of all execute the script ~jsongen_config.sh~. This script
-   will install:
-   - [[https://github.com/kerl/kerl][kerl]]
-   - ~erlang 20.0~
-   - [[https://github.com/erlang/rebar3][rebar3]]
-   - ~Quviq's QuickCheck R20~
-   - [[https://github.com/fredlund/jsongen][jsongen]]
-   To use kerl and rebar3 afterwords you will need to add
-   these lines to your shell configuration file:
-   #+BEGIN_SRC shell
-export PATH=$PATH:~/bin         # for kerl, only on Linux installations
-export PATH=/Users/luis/.cache/rebar3/bin:$PATH # rebar3 binary
-   #+END_SRC
-   To activate erlang 20.0 installed with kerl use:
-   #+BEGIN_SRC shell
-$ . ~/kerl/20.0/activate
-   #+END_SRC
-** Execution
-   First you need to start de API for testing.
+* Tool Demonstration: Testing JSON Web Services Using jsongen
+** Example 1: Testing a web service operation using jsongen
+*** Operation: *new user*
 
-   Once it's started change to the example ~examples/[example]~ directory, and type:
-   #+BEGIN_SRC shell
-$ rebar3 build
-   #+END_SRC
+    |-----------+-----------------------------------|
+    | Operation | new user                          |
+    |-----------+-----------------------------------|
+    | URI       | http://localhost:5000/bank/users/ |
+    | Method    | POST                              |
+    | Body      | name: string, password: string    |
+    | Result    | user: string                      |
+    | Status    | 201                               |
+    |-----------+-----------------------------------|
 
-   When it finishes just type:
+    Call: [[examples/example1/jsongen/new_user.jsch][new_user.jsch]]
 
-#+BEGIN_SRC shell
-$ rebar3 shell --name [node name]
-#+END_SRC
+    Response: [[examples/example1/jsongen/new_user.jsch][new_user_response.jsch]]
+** Example 2: Testing a web service protocol using jsongen
+*** Web service description
+
+    |-----------+----------------------------------------------------|
+    | Operation | new account                                        |
+    |-----------+----------------------------------------------------|
+    | URI       | http://localhost:5000/bank/users/{user}/accounts/  |
+    | Method    | POST                                               |
+    | Body      | empty                                              |
+    | Result    | accountid: string, balance: integer, owner: string |
+    | Status    | 201                                                |
+    |-----------+----------------------------------------------------|
+
+    Call: [[examples/example2/jsongen/new_user_response.jsch][new_user_response.jsch]]
+
+    Response: [[examples/example2/jsongen/new_account_response.jsch][new_account_response.jsch]]
+
+    |-----------+----------------------------------------------------------------|
+    | Operation | consult account                                                |
+    |-----------+----------------------------------------------------------------|
+    | URI       | http://localhost:5000/bank/users/{owner}/accounts/{accountid}/ |
+    | Method    | GET                                                            |
+    | Body      | empty                                                          |
+    | Result    | accountid: string, balance: integer, owner: string             |
+    | Status    | 200                                                            |
+    |-----------+----------------------------------------------------------------|
+
+    Call: [[examples/example2/jsongen/new_account_response.jsch][new_account_response.jsch]]
+
+    Response: [[examples/example2/jsongen/consult_response.jsch][consult_response.jsch]]
+
+    |-----------+----------------------------------------------------------------|
+    | Operation | deposit                                                        |
+    |-----------+----------------------------------------------------------------|
+    | URI       | http://localhost:5000/bank/users/{owner}/accounts/{accountid}/ |
+    | Method    | POST                                                           |
+    | Body      | operation: deposit, quantity: integer                          |
+    | Result    | accountid: string, balance: integer, owner: string             |
+    | Status    | 201                                                            |
+    |-----------+----------------------------------------------------------------|
+
+    Call: [[examples/example2/jsongen/new_account_response.jsch][new_account_response.jsch]]
+
+    Response: [[examples/example2/jsongen/deposit_response.jsch][deposit_response.jsch]]
+
+    |-----------+----------------------------------------------------------------|
+    | Operation | withdraw                                                       |
+    |-----------+----------------------------------------------------------------|
+    | URI       | http://localhost:5000/bank/users/{owner}/accounts/{accountid}/ |
+    | Method    | POST                                                           |
+    | Body      | operation: deposit, quantity: integer                          |
+    | Result    | accountid: string, balance: integer, owner: string             |
+    | Status    | 201                                                            |
+    |-----------+----------------------------------------------------------------|
+
+    Call: [[examples/example2/jsongen/new_account_response.jsch][new_account_response.jsch]]
+
+    Response: [[examples/example2/jsongen/withdraw_response.jsch][withdraw_response.jsch]]
+
+** Example 3: Testing a web service state correctness with a jsongen model
+*** Web service state
+
+*** State Machine implementation
+
+    #+BEGIN_SRC erlang :tangle "./code/model_functions.erl"
+-export([initial_state/0, next_state/4, postcondition/4]).
+
+-record(state, {users, accounts}).
+
+initial_state() ->
+  ...
+
+next_state(Super, State, Result, Call) ->
+  ...
+
+postcondition(Super, State, Result, Call) ->
+  ...
+    #+END_SRC
