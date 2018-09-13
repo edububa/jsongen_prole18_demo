@@ -1,5 +1,67 @@
 \section{Testing a web service state correctness with a jsongen model}
 
-\begin{frame}{Testing a web service state correctness with a jsongen model}
+\begin{frame}{Objectives and example}
+  The main objective of this example is to give a general idea of how
+  to use jsongen to test the state of a web service.
 
+  The web service state:\\
+
+  \centering
+  \begin{tabular}{| c | c |}
+    \hline
+    \textbf{Operation}   & \textbf{Changes the state} \\ \hline
+    new user    & yes \\ \hline
+    new account & yes \\ \hline
+    consult account & no \\ \hline
+    withdraw    & yes \\ \hline
+    deposit     & yes \\ \hline
+  \end{tabular}
+  \centering
+\end{frame}
+
+\begin{frame}{The model interface}
+  To use the model we need to implement the next 3 functions in an
+  erlang module:
+
+  \inputminted{erlang}{./code/interface.erl}
+\end{frame}
+
+\begin{frame}{State}
+  In our API we will model the state as:
+
+  \inputminted{erlang}{./code/state.erl}
+\end{frame}
+
+\begin{frame}{State analysis}
+  % TODO State diagram
+\end{frame}
+
+\begin{frame}{Model: next\_state}
+  This function changes the model's state and then calls the internal
+  function of jsongen with the same name.
+
+  \inputminted{erlang}{./code/next_state.erl}
+\end{frame}
+
+\begin{frame}{Model: next\_model\_state}
+  \inputminted{erlang}{./code/next_model_state.erl}
+\end{frame}
+
+\begin{frame}
+  \inputminted{erlang}{./code/next_model_state1.erl}
+\end{frame}
+
+\begin{frame}{Model: postcondition}
+  This function checks the postcondition properties defined in the
+  model.
+
+  \inputminted{erlang}{./code/postcondition.erl}
+\end{frame}
+
+\begin{frame}{Model: postcondition\_model\_state}
+  \inputminted{erlang}{./code/postcondition_model_state.erl}
+\end{frame}
+
+\begin{frame}[standout]
+  Demo
 \end{frame}

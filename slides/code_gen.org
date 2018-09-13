@@ -1,0 +1,397 @@
+* Tool Demonstration: Testing JSON Web Services Using jsongen
+** Context
+** Example 1: Testing a web service operation using jsongen
+*** Operation: *new user*
+
+    |-----------+-----------------------------------|
+    | Operation | new user                          |
+    |-----------+-----------------------------------|
+    | URI       | http://localhost:5000/bank/users/ |
+    | Method    | POST                              |
+    | Body      | name: string, password: string    |
+    | Result    | user: string                      |
+    | Status    | 201                               |
+    |-----------+-----------------------------------|
+
+    #+BEGIN_SRC json :tangle "./code/example1_op_description.jsch"
+{
+  "rel": "new_user",
+  "href": "http://localhost:5000/bank/users/",
+  "title": "new user",
+  "method": "POST",
+  ...
+    #+END_SRC
+
+*** Body generator
+
+    #+BEGIN_SRC json :tangle "./code/example1_body.jsch"
+...
+"schema": {
+  "type": "object",
+  "required": ["user", "password"],
+  "properties": {
+    "user": {
+      "quickcheck": { "name": "string" }
+    },
+    "password": {
+      "quickcheck": { "name": "string" }
+    }
+  }
+...
+    #+END_SRC
+
+    #+BEGIN_SRC json :tangle "./code/example1_body_custom_generators.jsch"
+...
+"schema": {
+  "type": "object",
+  "required": ["user", "password"],
+  "properties": {
+    "user": {
+      "quickcheck": { "name": "bank_generators:gen_user" }
+    },
+    "password": {
+      "quickcheck": { "name": "bank_generators:gen_password" }
+    }
+  },
+  "additionalProperties": false
+...
+    #+END_SRC
+
+    #+BEGIN_SRC json :tangle "./code/example1_targetSchema.jsch"
+...
+"targetSchema": {
+  "$ref": "new_user_response.jsch#"
+}
+...
+    #+END_SRC
+
+*** Complete operation JSON Schema
+
+    #+BEGIN_SRC json :tangle "./code/example1_new_user.jsch"
+{
+  "links": [
+    {
+      "rel": "new_user",
+      "href": "http://localhost:5000/bank/users/",
+      "title": "new user",
+      "method": "POST",
+      "schema": {
+        "type": "object",
+        "required": ["user", "password"],
+        "properties": {
+          "user": {
+            "quickcheck": { "name": "bank_generators:gen_user" }
+          },
+          "password": {
+            "quickcheck": { "name": "bank_generators:gen_password" }
+          }
+        },
+        "additionalProperties": false
+      },
+      "targetSchema": { "$ref": "new_user_response.jsch#" }
+      }
+  ]
+}
+    #+END_SRC
+
+*** Response JSON Schema validator
+    #+BEGIN_SRC json :tangle "./code/example1_new_user_response.jsch"
+{
+    "type": "object",
+    "required": ["user"],
+    "status": 201,
+    "properties": {
+        "user": { "type": "string" }
+    },
+    "additionalProperties": false
+}
+    #+END_SRC
+
+** Example 2: Testing a web service protocol using jsongen
+*** Web service description
+**** Operation: new account
+     |-----------+----------------------------------------------------|
+     | Operation | new account                                        |
+     |-----------+----------------------------------------------------|
+     | URI       | http://localhost:5000/bank/users/{user}/accounts/  |
+     | Method    | POST                                               |
+     | Body      | empty                                              |
+     | Result    | accountid: string, balance: integer, owner: string |
+     | Status    | 201                                                |
+     |-----------+----------------------------------------------------|
+
+     #+BEGIN_SRC json :tangle "./code/example2_new_account.jsch"
+{
+  "rel": "new_account",
+  "href": "http://localhost:5000/bank/users/{user}/accounts/",
+  "title": "new account",
+  "method": "POST",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
+     #+END_SRC
+
+     #+BEGIN_SRC json :tangle "./code/example2_new_account_response.jsch"
+{
+  "type": "object",
+  "required": ["accountid", "balance", "owner"],
+  "status": 201,
+  "properties": {
+    "accountid": { "type": "string" },
+    "balance": { "type": "integer" },
+    "owner": { "type": "string" }
+  },
+  "additionalProperties": false,
+}
+     #+END_SRC
+**** Operation: consult account
+     |-----------+----------------------------------------------------------------|
+     | Operation | consult account                                                |
+     |-----------+----------------------------------------------------------------|
+     | URI       | http://localhost:5000/bank/users/{owner}/accounts/{accountid}/ |
+     | Method    | GET                                                            |
+     | Body      | empty                                                          |
+     | Result    | accountid: string, balance: integer, owner: string             |
+     | Status    | 200                                                            |
+     |-----------+----------------------------------------------------------------|
+
+     #+BEGIN_SRC json :tangle "./code/example2_consult_account.jsch"
+{
+  "rel": "consult",
+  "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+  "title": "consult account",
+  "method": "GET"
+}
+     #+END_SRC
+
+     #+BEGIN_SRC json :tangle "./code/example2_consult_account_response.jsch"
+{
+  "type": "object",
+  "required": ["accountid", "balance", "owner"],
+  "status": 200,
+  "properties": {
+    "accountid": { "type": "string" },
+    "balance": { "type": "integer" },
+    "owner": { "type": "string" }
+  },
+  "additionalProperties": false
+}
+     #+END_SRC
+**** Operation: deposit
+     |-----------+----------------------------------------------------------------|
+     | Operation | deposit                                                        |
+     |-----------+----------------------------------------------------------------|
+     | URI       | http://localhost:5000/bank/users/{owner}/accounts/{accountid}/ |
+     | Method    | POST                                                           |
+     | Body      | operation: deposit, quantity: integer                          |
+     | Result    | accountid: string, balance: integer, owner: string             |
+     | Status    | 201                                                            |
+     |-----------+----------------------------------------------------------------|
+
+     #+BEGIN_SRC json :tangle "./code/example2_deposit.jsch"
+{
+  "rel": "deposit",
+  "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+  "title": "deposit",
+  "method": "POST",
+  "schema": {
+    "type": "object",
+    "required": ["operation", "quantity"],
+    "properties" : {
+      "operation": { "oneOf": [ { "enum" : ["deposit"] } ] },
+      "quantity": { "type": "integer" }
+    },
+    "additionalProperties": false
+  }
+}
+     #+END_SRC
+
+     #+BEGIN_SRC json :tangle "./code/example2_deposit_response.jsch"
+{
+  "type": "object",
+  "required": ["accountid", "balance", "owner"],
+  "status": 201,
+  "properties": {
+    "accountid": { "type": "string" },
+    "balance": { "type": "integer" },
+    "owner": { "type": "string" }
+  },
+  "additionalProperties": false
+}
+     #+END_SRC
+**** Operation: withdraw
+     |-----------+-----------------------------------------------------------------------------------------|
+     | Operation | withdraw                                                                                |
+     |-----------+-----------------------------------------------------------------------------------------|
+     | URI       | http://localhost:5000/bank/users/{owner}/accounts/{accountid}/                          |
+     | Method    | POST                                                                                    |
+     | Body      | operation: deposit, quantity: integer                                                   |
+     | Result    | {accountid: string, balance: integer, owner: string}, {error: integer, message: string} |
+     | Status    | 201                                                                                     |
+     |-----------+-----------------------------------------------------------------------------------------|
+
+     #+BEGIN_SRC json :tangle "./code/example2_withdraw.jsch"
+{
+  "rel": "withdraw",
+  "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+  "title": "withdraw",
+  "method": "POST",
+  "schema": {
+    "type": "object",
+    "required": ["operation", "quantity"],
+    "properties": {
+      "operation": { "oneOf": [ { "enum" : ["withdraw"] } ] },
+      "quantity": { "type": "integer" }
+    },
+    "additionalProperties": false
+  }
+}
+     #+END_SRC
+
+     #+BEGIN_SRC json :tangle "./code/example2_withdraw_response1.jsch"
+{
+  "oneOf" : [
+    {
+      "type": "object",
+      "required": ["accountid", "balance", "owner"],
+      "status": 201,
+      "properties": {
+        "accountid": { "type": "string" },
+        "balance": { "type": "integer" },
+        "owner": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+...
+     #+END_SRC
+
+     #+BEGIN_SRC json :tangle "./code/example2_withdraw_response2.jsch"
+...
+    {
+      "type": "object",
+      "required": ["status", "message"],
+      "status": 409,
+      "properties": {
+        "status": { "type": "integer" },
+        "message": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  ]
+}
+     #+END_SRC
+
+** Example 3: Testing a web service state correctness with a jsongen model
+   #+BEGIN_SRC erlang :tangle "./code/interface.erl"
+-export([initial_state/0, next_state/4, postcondition/4]).
+
+initial_state() ->
+  ...
+
+next_state(Super, State, Result, Call) ->
+  ...
+
+postcondition(Super, State, Call, Result) ->
+  ...
+   #+END_SRC
+
+   #+BEGIN_SRC erlang :tangle "./code/state.erl"
+-record(state, {users, accounts}).
+
+initial_state() ->
+  #state
+    {
+     users = [],
+     accounts = #{}
+    }.
+   #+END_SRC
+
+   #+BEGIN_SRC erlang :tangle "./code/next_state.erl"
+next_state(Super, State, Result, Call) ->
+  Info = get_info(Call, State, Result),
+  NextModelState = next_model_state(Info#info.op_title,
+                                    Info#info.priv_state,
+                                    Info#info.call_body,
+                                    Info#info.json_res),
+  NewState = jsg_links_utils:
+    set_private_state(NextModelState, State),
+  Super(NewState, Result, Call).
+   #+END_SRC
+
+   #+BEGIN_SRC erlang :tangle "./code/next_model_state.erl"
+next_model_state(Operation, ModelState, {struct,BodyValues},
+                 {struct,Values}) ->
+  case Operation of
+    "new_user" ->
+      case proplists:lookup(<<"user">>, Values) of
+        {_, User} ->
+          ModelState#state {
+            users = [User|ModelState#state.users]
+           };
+        none -> ModelState
+      end;
+
+    ...
+   #+END_SRC
+   #+BEGIN_SRC erlang :tangle "./code/next_model_state1.erl"
+   ...
+   "new account" ->
+      case {proplists:lookup(<<"accountid">>, Values),
+            proplists:lookup(<<"balance">>, Values)} of
+        {{_, AccountId}, {_, Balance}} ->
+          ModelState#state {
+            accounts = maps:put(AccountId,
+                                Balance,
+                                ModelState#state.accounts)
+           };
+        _ -> ModelState
+      end;
+    ...
+   #+END_SRC
+
+   #+BEGIN_SRC erlang :tangle "./code/postcondition.erl"
+postcondition(Super, State, Call, Result) ->
+  Info = get_info(Call, State, Result),
+  postcondition_model_state(Info#info.op_title,
+                            Info#info.priv_state,
+                            Info#info.json_res)
+    and Super(State, Call, Result).
+   #+END_SRC
+
+#+BEGIN_SRC erlang :tangle "./code/postcondition_model_state.erl"
+postcondition_model_state(Operation, ModelState,
+                          {struct, Values}) ->
+  case Operation of
+    "consult account" ->
+      case {proplists:lookup(<<"accountid">>, Values),
+            proplists:lookup(<<"balance">>, Values)} of
+        {{_, AccountId}, {_, Balance}} ->
+          Balance == maps:get(AccountId,
+                              ModelState#state.accounts);
+        _ -> false
+      end;
+    _ -> true
+  end.
+#+END_SRC
+
+*** Web service state
+
+*** State Machine implementation
+
+    #+BEGIN_SRC erlang :tangle "./code/model_functions.erl"
+-export([initial_state/0, next_state/4, postcondition/4]).
+
+-record(state, {users, accounts}).
+
+initial_state() ->
+  ...
+
+next_state(Super, State, Result, Call) ->
+  ...
+
+postcondition(Super, State, Result, Call) ->
+  ...
+    #+END_SRC
