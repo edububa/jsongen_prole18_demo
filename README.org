@@ -14,7 +14,7 @@
 
     Call: [[examples/example1/jsongen/new_user.jsch][new_user.jsch]]
 
-    Response: [[examples/example1/jsongen/new_user.jsch][new_user_response.jsch]]
+    Response: [[examples/example1/jsongen/new_user_response.jsch][new_user_response.jsch]]
 ** Example 2: Testing a web service protocol using jsongen
 *** Web service description
 
