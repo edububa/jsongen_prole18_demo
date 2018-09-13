@@ -17,17 +17,17 @@
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
-    gen_server_users:start(),
-    bank_test_with_model_sup:start_link().
+  gen_server_users:start(),
+  bank_test_with_model_sup:start_link().
 
 test() ->
-    c:cd("jsongen"),
-    js_links_machine:run_statem(bank_model, ["new_user.jsch"]),
-    c:cd("..").
+  c:cd("jsongen"),
+  js_links_machine:run_statem(bank_model, ["new_user.jsch"]),
+  c:cd("..").
 
 %%--------------------------------------------------------------------
 stop(_State) ->
-    ok.
+  ok.
 
 %%====================================================================
 %% Internal functions
