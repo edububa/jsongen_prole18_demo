@@ -75,3 +75,4 @@
     Response: [[examples/example2/jsongen/withdraw_response.jsch][withdraw_response.jsch]]
 
 ** Example 3: Testing a web service state correctness with a jsongen model
+   Model source code: [[examples/example3/src/bank_model.erl][bank_model.erl]]
