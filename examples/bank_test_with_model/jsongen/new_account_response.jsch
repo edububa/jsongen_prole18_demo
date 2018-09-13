@@ -17,6 +17,42 @@
             "targetSchema": {
                 "$ref": "consult_account_response.jsch#"
             }
+        },
+        {
+            "rel": "deposit",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+            "title": "deposit",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "required": ["operation", "quantity"],
+                "properties" : {
+                    "operation": { "oneOf": [ { "enum" : ["deposit"] } ] },
+                    "quantity": { "type": "integer" }
+                },
+                "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "account_response.jsch#"
+            }
+        },
+        {
+            "rel": "withdraw",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+            "title": "withdraw",
+            "method": "POST",
+            "schema": {
+                "type": "object",
+                "required": ["operation", "quantity"],
+                "properties": {
+                    "operation": { "oneOf": [ { "enum" : ["withdraw"] } ] },
+                    "quantity": { "type": "integer" }
+                },
+                "additionalProperties": false
+            },
+            "targetSchema": {
+                "$ref": "account_response.jsch#"
+            }
         }
     ]
 }

@@ -21,7 +21,6 @@ start(_StartType, _StartArgs) ->
     bank_test_with_model_sup:start_link().
 
 test() ->
-    io:format("uetnhauensaohuesoaoehu"),
     c:cd("jsongen"),
     js_links_machine:run_statem(bank_model, ["new_user.jsch"]),
     c:cd("..").

@@ -5,7 +5,6 @@
 -record(state, {users, accounts}).
 -record(info, {op_title, call_body, priv_state, json_res}).
 
-
 initial_state() ->
     #state{
        users = [],
@@ -23,7 +22,6 @@ next_state(Super, State, Result, Call) ->
 
 postcondition(Super, State, Call, Result) ->
     Info = get_info(Call, State, Result),
-    io:format("~n~p~n", [Info#info.priv_state]),
     postcondition_private_state(Info#info.op_title,
                                 Info#info.priv_state,
                                 Info#info.json_res)
@@ -61,22 +59,24 @@ next_private_state("new account", PrivateState, ResultBody, {struct, Values}) ->
              };
         _ -> PrivateState
     end;
-next_private_state("deposit", PrivateState, ResultBody, {struct, Values}) ->
-    case {proplists:lookup(<<"accountid">>, Values), proplists:lookup(<<"balance">>, Values)} of
-        {{_, AccountId}, {_, Balance}} ->
+next_private_state("deposit", PrivateState, {struct, BodyValues}, {struct, Values}) ->
+    case proplists:lookup(<<"accountid">>, Values) of
+        {_, AccountId} ->
             PrivateState#state {
               accounts = maps:put(AccountId,
-                                  maps:get(AccountId, PrivateState#state.accounts) + Balance,
+                                  maps:get(AccountId, PrivateState#state.accounts) +
+                                      proplists:get_value(<<"quantity">>, BodyValues),
                                   PrivateState#state.accounts)
              };
         _ -> PrivateState
     end;
-next_private_state("withdraw", PrivateState, ResultBody, {struct, Values}) ->
+next_private_state("withdraw", PrivateState, {struct, BodyValues}, {struct, Values}) ->
     case {proplists:lookup(<<"accountid">>, Values), proplists:lookup(<<"balance">>, Values)} of
         {{_, AccountId}, {_, Balance}} ->
             PrivateState#state {
               accounts = maps:put(AccountId,
-                                  maps:get(AccountId, PrivateState#state.accounts) - Balance,
+                                  maps:get(AccountId, PrivateState#state.accounts) -
+                                      proplists:get_value(<<"quantity">>, BodyValues),
                                   PrivateState#state.accounts)
              };
         _ -> PrivateState
@@ -85,8 +85,8 @@ next_private_state(_, PrivateState, _, _) ->
     PrivateState.
 
 
-postcondition_private_state("consult", PrivateState, {struct, Values}) ->
-    case {proplists:lookup(<<"accountid">>), proplists:lookup("balance")} of
+postcondition_private_state("consult account", PrivateState, {struct, Values}) ->
+    case {proplists:lookup(<<"accountid">>, Values), proplists:lookup(<<"balance">>, Values)} of
         {{_, AccountId}, {_, Balance}} ->
             Balance == maps:get(AccountId, PrivateState#state.accounts, -1);
         _ -> false
