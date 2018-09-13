@@ -1,0 +1,45 @@
+\section{Context}
+
+\begin{frame}{How we could test Web services}
+
+  \begin{enumerate}
+\item Unit tests.
+\item Integration tests. \footnote{*No me convence usar esto, porque no encuentro fácil el paralelismo con jsongen. Me puedo meter donde no me llaman}
+\item Model checking tests.
+
+  \end{enumerate}
+
+And common approaches are:
+\begin{itemize}
+\item Tools for unit testing \footnote{*¿Mencionamos Postman, RESTclient?}
+\item Libraries tied to project structure and language.
+\item Ad-hoc test framework.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How to use jsongen}
+  What jsongen does:
+\begin{itemize}
+\item Automatic test case generation.
+\item Trazable errors.
+\item Extensible library to model service state.
+\item Property-based testing of web services.
+\end{itemize}
+
+What jsongen needs:
+  \begin{itemize}
+    \item A JSON Schema specification of the API.
+    \item No programming knowledge needed for basic usage.
+    \item Erlang knowledge for advanced usage.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tool demonstration testing a custom web
+    service\footnote{Diapositiva prescindible mientras se mencione en la siguiente
+    diapositiva}}
+  \begin{itemize}
+  \item An easy to understand bank web service.
+  \item Operations to create resources and modify state.
+  \item Jsongen's approach by example.
+  \end{itemize}
+\end{frame}
