@@ -8,3 +8,6 @@ compile:
 clean:
 	rm -rf _build
 	rm rebar.lock
+
+test:
+	rebar3 shell --name jsongen
