@@ -1,0 +1,8 @@
+{
+    "type": "object",
+    "required": ["user"],
+    "status": 201,
+    "properties": {
+        "user": { "type": "string" }
+    }
+}

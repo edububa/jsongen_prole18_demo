@@ -2,18 +2,18 @@
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
-\usetheme{metropolis}
+% \usetheme{metropolis}
 
 \usepackage{appendixnumberbeamer}
 \usepackage{pgfplots}
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
-% \usepackage{minted}
+\usepackage{minted}
 
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 
-% \usemintedstyle{emacs}
+\usemintedstyle{emacs}
 
 \newcommand\Fontvi{\fontsize{10}{12}\selectfont}
 
@@ -21,8 +21,8 @@
 % \subtitle{A modern beamer theme}
 \date{\today}
 \author{
-  Ignacio Ballesteros
-  Luis Eduardo Bueso\\
+  Ignacio Ballesteros\\
+  Luis Eduardo Bueso
 }
 \graphicspath{{./pics}}
 \institute{UPM}
@@ -39,5 +39,13 @@
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents[hideallsubsections]
 \end{frame}
+
+\input{sec/context.tex}
+
+\input{sec/example1.tex}
+
+\input{sec/example2.tex}
+
+\input{sec/example3.tex}
 
 \end{document}

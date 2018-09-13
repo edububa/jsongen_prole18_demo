@@ -1,0 +1,11 @@
+"schema": {
+  "type": "object",
+  "required": ["user", "password"],
+  "properties": {
+    "user": {
+      "quickcheck": { "name": "bank_generators:gen_user" }
+    },
+    "password": {
+      "quickcheck": { "name": "bank_generators:gen_password" }
+    }
+  }

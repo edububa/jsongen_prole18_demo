@@ -1,0 +1,184 @@
+* Tool Demonstration: Testing JSON Web Services Using jsongen
+** Context
+
+** Example 1: Testing a web service operation using jsongen
+*** Operation: *new user*
+
+    |-----------+-----------------------------------|
+    | Operation | new user                          |
+    |-----------+-----------------------------------|
+    | URI       | http://localhost:5000/bank/users/ |
+    | Method    | POST                              |
+    | Body      | name: string, password: string    |
+    | Result    | user: string                      |
+    | Status    | 201                               |
+    |-----------+-----------------------------------|
+
+*** Body generator
+
+    #+BEGIN_SRC json :tangle "./code/example1_body.jsch"
+"schema": {
+  "type": "object",
+  "required": ["user", "password"],
+  "properties": {
+    "user": {
+      "quickcheck": { "name": "string" }
+    },
+    "password": {
+      "quickcheck": { "name": "string" }
+    }
+  }
+    #+END_SRC
+
+    #+BEGIN_SRC json :tangle "./code/example1_body_custom_generators.jsch"
+"schema": {
+  "type": "object",
+  "required": ["user", "password"],
+  "properties": {
+    "user": {
+      "quickcheck": { "name": "bank_generators:gen_user" }
+    },
+    "password": {
+      "quickcheck": { "name": "bank_generators:gen_password" }
+    }
+  }
+    #+END_SRC
+
+*** Complete operation JSON Schema
+
+    #+BEGIN_SRC json :tangle "./code/example1_new_user.jsch"
+{
+  "links": [
+    {
+      "rel": "new_user",
+      "href": "http://localhost:5000/bank/users/",
+      "title": "new user",
+      "method": "POST",
+      "schema": {
+        "type": "object",
+        "required": ["user", "password"],
+        "properties": {
+          "user": {
+            "quickcheck": { "name": "bank_generators:gen_user" }
+          },
+          "password": {
+            "quickcheck": { "name": "bank_generators:gen_password" }
+          }
+        },
+        "additionalProperties": false
+      },
+      "targetSchema": { "$ref": "new_user_response.jsch#" }
+      }
+  ]
+}
+    #+END_SRC
+
+*** Response JSON Schema validator
+    #+BEGIN_SRC json :tangle "./code/example1_new_user_response.jsch"
+{
+    "type": "object",
+    "required": ["user"],
+    "status": 201,
+    "properties": {
+        "user": { "type": "string" }
+    }
+}
+    #+END_SRC
+
+** Example 2: Testing a web service protocol using jsongen
+*** Web service description
+
+    |-----------+----------------------------------------------------|
+    | Operation | new account                                        |
+    |-----------+----------------------------------------------------|
+    | URI       | http://localhost:5000/bank/users/{user}/accounts/  |
+    | Method    | POST                                               |
+    | Body      | empty                                              |
+    | Result    | accountid: string, balance: integer, owner: string |
+    | Status    | 201                                                |
+    |-----------+----------------------------------------------------|
+
+    |-----------+----------------------------------------------------------------|
+    | Operation | consult account                                                |
+    |-----------+----------------------------------------------------------------|
+    | URI       | http://localhost:5000/bank/users/{owner}/accounts/{accountid}/ |
+    | Method    | GET                                                            |
+    | Body      | empty                                                          |
+    | Result    | accountid: string, balance: integer, owner: string             |
+    | Status    | 200                                                            |
+    |-----------+----------------------------------------------------------------|
+
+    |-----------+----------------------------------------------------------------|
+    | Operation | deposit account                                                |
+    |-----------+----------------------------------------------------------------|
+    | URI       | http://localhost:5000/bank/users/{owner}/accounts/{accountid}/ |
+    | Method    | POST                                                           |
+    | Body      | operation: deposit, quantity: integer                          |
+    | Result    | accountid: string, balance: integer, owner: string             |
+    | Status    | 201                                                            |
+    |-----------+----------------------------------------------------------------|
+
+    |-----------+----------------------------------------------------------------|
+    | Operation | withdraw account                                               |
+    |-----------+----------------------------------------------------------------|
+    | URI       | http://localhost:5000/bank/users/{owner}/accounts/{accountid}/ |
+    | Method    | POST                                                           |
+    | Body      | operation: deposit, quantity: integer                          |
+    | Result    | accountid: string, balance: integer, owner: string             |
+    | Status    | 201                                                            |
+    |-----------+----------------------------------------------------------------|
+
+    #+BEGIN_SRC json :tangle "./code/example2_consult_account.jsch"
+{
+  "rel": "consult",
+  "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+  "title": "consult account",
+  "method": "GET",
+  "targetSchema": {
+    "$ref": "consult_account_response.jsch#"
+  }
+}
+    #+END_SRC
+
+    #+BEGIN_SRC json :tangle "./code/example2_accounts_account_links.jsch"
+{
+    "type": "object",
+    "required": ["accountid", "balance", "owner"],
+    "status": 201,
+    "properties": {
+        "accountid": { "type": "string" },
+        "balance": { "type": "integer" },
+        "owner": { "type": "string" }
+    },
+    "additionalProperties": false,
+    "links": [
+        {
+            "rel": "consult",
+            "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+            "title": "consult account",
+            "method": "GET",
+            "targetSchema": {
+                "$ref": "consult_account_response.jsch#"
+            }
+        },
+...
+    #+END_SRC
+** Example 3: Testing a web service state correctness with a jsongen model
+*** Web service state
+
+*** State Machine implementation
+
+    #+BEGIN_SRC erlang :tangle "./code/model_functions.erl"
+-export([initial_state/0, next_state/4, postcondition/4]).
+
+-record(state, {users, accounts}).
+
+initial_state() ->
+  ...
+
+next_state(Super, State, Result, Call) ->
+  ...
+
+postcondition(Super, State, Result, Call) ->
+  ...
+    #+END_SRC

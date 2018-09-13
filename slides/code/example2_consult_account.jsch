@@ -1,0 +1,9 @@
+{
+  "rel": "consult",
+  "href": "http://localhost:5000/bank/users/{owner}/accounts/{accountid}/",
+  "title": "consult account",
+  "method": "GET",
+  "targetSchema": {
+    "$ref": "consult_account_response.jsch#"
+  }
+}
