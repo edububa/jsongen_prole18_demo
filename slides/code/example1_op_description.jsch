@@ -1,0 +1,6 @@
+{
+  "rel": "new_user",
+  "href": "http://localhost:5000/bank/users/",
+  "title": "new user",
+  "method": "POST",
+  ...

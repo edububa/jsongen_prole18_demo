@@ -1,5 +1,81 @@
 \section{Testing a web service operation using jsongen}
 
-\begin{frame}{Testing a web service operation using jsongen}
+% TODO: all tables same width
 
+\begin{frame}{Objectives and example}
+  The main objective of this example is to give a general idea of how
+  to use jsongen to test a simple web service operation.\\
+
+  The web service operation:\\
+
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Operation} & new user \\ \hline
+    \textbf{URI}       & http://localhost:5000/bank/users/ \\ \hline
+    \textbf{Method}    & POST     \\ \hline
+    \textbf{Body}      & name: string, password: string \\ \hline
+    \textbf{Result}    & user: string \\ \hline
+    \textbf{Status}    & 201 \\ \hline
+  \end{tabular}
+  \centering
+\end{frame}
+
+\begin{frame}{Starting with our JSON Schema}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Operation} & new user \\ \hline
+    \textbf{URI}       & http://localhost:5000/bank/users/ \\ \hline
+    \textbf{Method}    & POST     \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example1_op_description.jsch}
+\end{frame}
+
+\begin{frame}{Body generator}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Body} & name: string, password: string \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example1_body.jsch}
+\end{frame}
+
+\begin{frame}{Body generator: self-defined generators}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Body} & name: string, password: string \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example1_body_custom_generators.jsch}
+\end{frame}
+
+\begin{frame}{Response validation}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Result}    & user: string \\ \hline
+    \textbf{Status}    & 201 \\ \hline
+  \end{tabular}
+  \centering
+  \inputminted{js}{./code/example1_new_user_response.jsch}
+\end{frame}
+
+\begin{frame}{Structure}
+  At the end we will have 2 files:
+  \begin{itemize}
+  \item \texttt{new\_user.jsch} which contains the information used in
+    the request generation.
+  \item \texttt{new\_user\_response.jsch} which contains the information
+    in the response validation.
+  \end{itemize}
+  The last important JSON Schema identifier is:
+  \inputminted{js}{./code/example1_targetSchema.jsch}
+\end{frame}
+
+\begin{frame}[standout]
+  Demo
 \end{frame}

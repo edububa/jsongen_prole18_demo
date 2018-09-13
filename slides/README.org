@@ -14,9 +14,19 @@
     | Status    | 201                               |
     |-----------+-----------------------------------|
 
+    #+BEGIN_SRC json :tangle "./code/example1_op_description.jsch"
+{
+  "rel": "new_user",
+  "href": "http://localhost:5000/bank/users/",
+  "title": "new user",
+  "method": "POST",
+  ...
+    #+END_SRC
+
 *** Body generator
 
     #+BEGIN_SRC json :tangle "./code/example1_body.jsch"
+...
 "schema": {
   "type": "object",
   "required": ["user", "password"],
@@ -28,9 +38,11 @@
       "quickcheck": { "name": "string" }
     }
   }
+...
     #+END_SRC
 
     #+BEGIN_SRC json :tangle "./code/example1_body_custom_generators.jsch"
+...
 "schema": {
   "type": "object",
   "required": ["user", "password"],
@@ -41,8 +53,18 @@
     "password": {
       "quickcheck": { "name": "bank_generators:gen_password" }
     }
-  }
+  },
+  "additionalProperties": false
+...
     #+END_SRC
+
+#+BEGIN_SRC json :tangle "./code/example1_targetSchema.jsch"
+...
+"targetSchema": {
+  "$ref": "new_user_response.jsch#"
+}
+...
+#+END_SRC
 
 *** Complete operation JSON Schema
 
@@ -81,7 +103,8 @@
     "status": 201,
     "properties": {
         "user": { "type": "string" }
-    }
+    },
+    "additionalProperties": false
 }
     #+END_SRC
 

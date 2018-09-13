@@ -1,3 +1,4 @@
+...
 "schema": {
   "type": "object",
   "required": ["user", "password"],
@@ -8,4 +9,6 @@
     "password": {
       "quickcheck": { "name": "bank_generators:gen_password" }
     }
-  }
+  },
+  "additionalProperties": false
+...
