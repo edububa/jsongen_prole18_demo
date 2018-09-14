@@ -1,0 +1,21 @@
+\documentclass[crop,tikz]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+
+\begin{document}
+\begin{tikzpicture}
+  \tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}
+  \tikzset{edge/.style = {->,> = latex'}}
+
+  \node[vertex] (l1) at (1.5,1.3) {};
+  \node (l1d) [right= 0cm of l1] {$\text{Generator}$};
+  \node[vertex, fill=gray!40] (l2) at (1.5,0.7) {};
+  \node (l2d) [right= 0cm of l2] {$\text{Validator}$};
+
+  \node[vertex] (new) at (0,2) {$\mathtt{new\_user}$};
+  \node[vertex, fill=gray!40] (rsp) at (0,0) {$\texttt{new\_user}$};
+
+  \draw[edge] (new) to (rsp);
+\end{tikzpicture}
+\end{document}
