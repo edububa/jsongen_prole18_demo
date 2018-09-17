@@ -1,20 +1,21 @@
 \section{Context}
 
-\begin{frame}{How we could test Web services}
+\begin{frame}{What is jsongen}
 
-  \begin{enumerate}
-\item Unit tests.
-\item Integration tests. \footnote{*No me convence usar esto, porque no encuentro fácil el paralelismo con jsongen. Me puedo meter donde no me llaman}
-\item Model checking tests.
+\end{frame}
 
-  \end{enumerate}
-
-And common approaches are:
-\begin{itemize}
-\item Tools for unit testing \footnote{*¿Mencionamos Postman, RESTclient?}
-\item Libraries tied to project structure and language.
-\item Ad-hoc test framework.
-\end{itemize}
+\begin{frame}{Our bank web service}
+  \begin{figure}
+    \centering
+      \begin{overprint}[\textwidth]
+    \onslide<1>\includestandalone[mode=buildnew,  width=\textwidth]{./figures/figure-api-1}
+    \onslide<2> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-2}
+    \onslide<3> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-3}
+    \onslide<4> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-4}
+    \onslide<5> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-5}
+    \onslide<6->\includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-6}
+  \end{overprint}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{How to use jsongen}
