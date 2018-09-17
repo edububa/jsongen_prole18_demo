@@ -1,25 +1,35 @@
-\section{Testing a web service protocol using jsongen}
+\section{Testing a web service dynamic state using jsongen}
 
-\begin{frame}{Objectives and API description}
+\begin{frame}{Objectives and API description}%
   The main objective of this example is to give a general idea of how
   to use the dynamic links descovering habilities of jsongen.
 
-  In this example we will test the protocol of the whole bank API.
+  In this example we will test the protocol of the whole bank API.%
 
-  The API operations:
+  Let's revisit our possible operations:%
+\end{frame}
 
-  \centering
-  \begin{tabular}{| l | l |}
-    \hline
-    \textbf{Operation} & \textbf{Resource identifiers} \\ \hline
-    new user           & /bank/users/                  \\ \hline
-    new account        & /bank/users/\{user\}/accounts/  \\ \hline
-    consult account    & /bank/users/\{owner\}/accounts/\{accountid\}/ \\ \hline
-    deposit            & /bank/users/\{owner\}/accounts/\{accountid\}/ \\ \hline
-    withdraw           & /bank/users/\{owner\}/accounts/\{accountid\}/ \\ \hline
-  \end{tabular}
-  \centering
+\begin{frame}{Bank api operations}
+  \begin{figure}
+    \centering
+    \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-6}%
+  \end{figure}
+\end{frame}
 
+\begin{frame}{Dynamic discovery of operations}%
+  Jsongen can create sequences of operations with data received in
+  previous requests.
+
+  When jsogen validates a response, we can define a new link to
+  explore within the JSON Schema.
+
+  Our \texttt{create\_account} operation unlocks three operations over
+  the account created:%
+  \begin{itemize}
+  \item consult
+  \item deposit
+  \item withdraw
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Operation: new account}
@@ -46,80 +56,80 @@
   \inputminted{js}{./code/example2_new_account_response.jsch}
 \end{frame}
 
-\begin{frame}{Operation: consult account}
-  \centering
-  \begin{tabular}{| c | l |}
-    \hline
-    \textbf{Operation} & consult account \\ \hline
-    \textbf{URI}       & http://localhost:5000/bank/users/\{owner\}/accounts/\{accountid\} \\ \hline
-    \textbf{Method}    & GET     \\ \hline
-  \end{tabular}
-  \centering
-  \inputminted{js}{./code/example2_consult_account.jsch}
-\end{frame}
+% \begin{frame}{Operation: consult account}
+%   \centering
+%   \begin{tabular}{| c | l |}
+%     \hline
+%     \textbf{Operation} & consult account \\ \hline
+%     \textbf{URI}       & http://localhost:5000/bank/users/\{owner\}/accounts/\{accountid\} \\ \hline
+%     \textbf{Method}    & GET     \\ \hline
+%   \end{tabular}
+%   \centering
+%   \inputminted{js}{./code/example2_consult_account.jsch}
+% \end{frame}
 
-\begin{frame}{Operation: consult account}
-  \centering
-  \begin{tabular}{| c | l |}
-    \hline
-    \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
-    \textbf{Status}    & 200 \\ \hline
-  \end{tabular}
-  \centering
-  \inputminted{js}{./code/example2_consult_account_response.jsch}
-\end{frame}
+% \begin{frame}{Operation: consult account}
+%   \centering
+%   \begin{tabular}{| c | l |}
+%     \hline
+%     \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
+%     \textbf{Status}    & 200 \\ \hline
+%   \end{tabular}
+%   \centering
+%   \inputminted{js}{./code/example2_consult_account_response.jsch}
+% \end{frame}
 
-\begin{frame}{Operation: deposit}
-  \centering
-  \begin{tabular}{| c | l |}
-    \hline
-    \textbf{Operation} & deposit \\ \hline
-    \textbf{URI}       & http://localhost:5000/bank/users/\{owner\}/accounts/\{accountid\} \\ \hline
-    \textbf{Method}    & POST     \\ \hline
-    \textbf{Body}      & operation: ``deposit'', quantity: integer \\ \hline
-  \end{tabular}
-  \centering
-  \inputminted{js}{./code/example2_deposit.jsch}
-\end{frame}
+% \begin{frame}{Operation: deposit}
+%   \centering
+%   \begin{tabular}{| c | l |}
+%     \hline
+%     \textbf{Operation} & deposit \\ \hline
+%     \textbf{URI}       & http://localhost:5000/bank/users/\{owner\}/accounts/\{accountid\} \\ \hline
+%     \textbf{Method}    & POST     \\ \hline
+%     \textbf{Body}      & operation: ``deposit'', quantity: integer \\ \hline
+%   \end{tabular}
+%   \centering
+%   \inputminted{js}{./code/example2_deposit.jsch}
+% \end{frame}
 
-\begin{frame}{Operation: deposit}
-  \centering
-  \begin{tabular}{| c | l |}
-    \hline
-    \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
-    \textbf{Status}    & 201 \\ \hline
-  \end{tabular}
-  \centering
-  \inputminted{js}{./code/example2_deposit_response.jsch}
-\end{frame}
+% \begin{frame}{Operation: deposit}
+%   \centering
+%   \begin{tabular}{| c | l |}
+%     \hline
+%     \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
+%     \textbf{Status}    & 201 \\ \hline
+%   \end{tabular}
+%   \centering
+%   \inputminted{js}{./code/example2_deposit_response.jsch}
+% \end{frame}
 
-\begin{frame}{Operation: withdraw}
-  \centering
-  \begin{tabular}{| c | l |}
-    \hline
-    \textbf{Operation} & withdraw \\ \hline
-    \textbf{URI}       & http://localhost:5000/bank/users/\{owner\}/accounts/\{accountid\} \\ \hline
-    \textbf{Method}    & POST     \\ \hline
-    \textbf{Body}      & operation: ``withdarw'', quantity: integer \\ \hline
-  \end{tabular}
-  \centering
-  \inputminted{js}{./code/example2_withdraw.jsch}
-\end{frame}
+% \begin{frame}{Operation: withdraw}
+%   \centering
+%   \begin{tabular}{| c | l |}
+%     \hline
+%     \textbf{Operation} & withdraw \\ \hline
+%     \textbf{URI}       & http://localhost:5000/bank/users/\{owner\}/accounts/\{accountid\} \\ \hline
+%     \textbf{Method}    & POST     \\ \hline
+%     \textbf{Body}      & operation: ``withdarw'', quantity: integer \\ \hline
+%   \end{tabular}
+%   \centering
+%   \inputminted{js}{./code/example2_withdraw.jsch}
+% \end{frame}
 
-\begin{frame}{Operation: withdraw}
-  \centering
-  \begin{tabular}{| c | l |}
-    \hline
-    \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
-    \textbf{Status}    & 201 \\ \hline
-  \end{tabular}
-  \centering
-  \inputminted{js}{./code/example2_withdraw_response1.jsch}
-\end{frame}
+% \begin{frame}{Operation: withdraw}
+%   \centering
+%   \begin{tabular}{| c | l |}
+%     \hline
+%     \textbf{Result}    & accountid: string, balance: integer, owner: string\\ \hline
+%     \textbf{Status}    & 201 \\ \hline
+%   \end{tabular}
+%   \centering
+%   \inputminted{js}{./code/example2_withdraw_response1.jsch}
+% \end{frame}
 
-\begin{frame}
-  \inputminted{js}{./code/example2_withdraw_response2.jsch}
-\end{frame}
+% \begin{frame}
+%   \inputminted{js}{./code/example2_withdraw_response2.jsch}
+% \end{frame}
 
 \begin{frame}{Dependencies}
   \begin{figure}
@@ -133,7 +143,7 @@
 \begin{frame}{Structure}
   \begin{figure}
     \centering
-    \includegraphics[width=0.6\textwidth]{./figures/figure-example-2-account}
+    \includestandalone[mode=buildnew, scale=0.7]{./figures/figure-example-2-account}
     \caption{File discovery structure}
     \label{fig:structure}
   \end{figure}

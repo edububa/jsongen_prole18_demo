@@ -1,13 +1,15 @@
 ...
 "schema": {
   "type": "object",
-  "required": ["user", "password"],
+  "required": ["user",
+               "password"],
   "properties": {
     "user": {
-      "quickcheck": { "name": "string" }
+      "type": "string"
     },
     "password": {
-      "quickcheck": { "name": "string" }
+      "type":  "string"
     }
   }
+}
 ...

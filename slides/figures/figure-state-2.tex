@@ -1,0 +1,37 @@
+\documentclass[crop,tikz]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+\usetikzlibrary{hobby}
+\usepackage[draft]{tikzpeople}
+
+\newcommand\irregularcircle[2]{% radius, irregularity
+  +(0:{(#1)+rand*(#2)})
+  \foreach \a in {10,20,...,350}{
+    -- +(\a:{(#1)+rand*(#2)})
+  } -- cycle
+}
+
+\begin{document}
+\begin{tikzpicture}
+  \tikzset{line/.style={draw, <->, >=latex'}}
+  \tikzset{line2/.style={draw, ->, >=latex'}}
+  \tikzset{line3/.style={draw, <->, >=latex', dashed}}
+
+  \node[] at (0,0) {\includegraphics[width=\textwidth]{./figures/figure-state-draw}};
+
+  \draw [fill=black] (-4,0) circle (2pt);
+  \draw [fill=black] (4,0) circle (2pt);
+  \path (-4, 0) edge[bend left=15, line, thick] node[pos=0.5, above] {create\_account()} (4, 0);
+
+
+  %
+  \path (-4, 0) edge[bend left=15, line2, thick] node[pos=0.3, right]  {deposit(n)} (-3.2, -1.6);
+  \draw [fill=black] (-3.2,-1.6) circle (2pt);
+
+  \path (4, 0) edge[bend left=15, line2, thick] node[pos=0.3, right] {deposit(n)} (4.8, -1.6);
+  \draw [fill=black] (4.8,-1.6) circle (2pt);
+
+\end{tikzpicture}
+\end{document}

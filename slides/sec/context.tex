@@ -2,45 +2,28 @@
 
 \begin{frame}{What is jsongen}
 
+  A tool for testing web services based on json communication.
+
+  Using the Quviq's Quichckeck state machine, jsongen can test the
+  dynamic properties of web services.
+
+  We can start testing only with a JSON Schema file defining an API.
+
+  This makes web services testing easier and faster.
+
 \end{frame}
 
 \begin{frame}{Our bank web service}
   \begin{figure}
     \centering
-      \begin{overprint}[\textwidth]
-    \onslide<1>\includestandalone[mode=buildnew,  width=\textwidth]{./figures/figure-api-1}
-    \onslide<2> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-2}
-    \onslide<3> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-3}
-    \onslide<4> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-4}
-    \onslide<5> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-5}
-    \onslide<6->\includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-6}
+    \begin{overprint}[\textwidth]
+    \onslide<1> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-0}
+    \onslide<2> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-1}
+    \onslide<3> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-2}
+    \onslide<4> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-3}
+    \onslide<5> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-4}
+    \onslide<6> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-5}
+    \onslide<7->\includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-6}
   \end{overprint}
   \end{figure}
-\end{frame}
-
-\begin{frame}{How to use jsongen}
-  What jsongen does:
-\begin{itemize}
-\item Automatic test case generation.
-\item Trazable errors.
-\item Extensible library to model service state.
-\item Property-based testing of web services.
-\end{itemize}
-
-What jsongen needs:
-  \begin{itemize}
-    \item A JSON Schema specification of the API.
-    \item No programming knowledge needed for basic usage.
-    \item Erlang knowledge for advanced usage.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Tool demonstration testing a custom web
-    service\footnote{Diapositiva prescindible mientras se mencione en la siguiente
-    diapositiva}}
-  \begin{itemize}
-  \item An easy to understand bank web service.
-  \item Operations to create resources and modify state.
-  \item Jsongen's approach by example.
-  \end{itemize}
 \end{frame}
