@@ -1,18 +1,3 @@
-\section{Context}
-
-\begin{frame}{What is jsongen}
-
-  A tool for testing web services based on json communication.
-
-  Using the Quviq's Quichckeck state machine, jsongen can test the
-  dynamic properties of web services.
-
-  We can start testing only with a JSON Schema file defining an API.
-
-  This makes web services testing easier and faster.
-
-\end{frame}
-
 \begin{frame}{Our bank web service}
   \begin{figure}
     \centering
@@ -26,4 +11,29 @@
     \onslide<7->\includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-api-6}
   \end{overprint}
   \end{figure}
+\end{frame}
+
+\begin{frame}{What is jsongen}
+
+  \begin{itemize}
+  \item Jsongen is a tool for testing web services based on json
+    communication.
+
+  \item We can generate automated and random test cases using
+    Quickcheck.
+
+  \item What do we need:
+    \begin{itemize}
+    \item A JSON Schema for the tested API.\@
+    \item Optionally, an Erlang module for state checking.
+    \end{itemize}
+
+  \item Differences with other testing tools:
+    \begin{itemize}
+    \item Automated test cases.
+    \item
+    \end{itemize}
+
+  \end{itemize}
+
 \end{frame}
