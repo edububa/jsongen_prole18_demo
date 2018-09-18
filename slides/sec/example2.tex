@@ -33,14 +33,28 @@
 \end{frame}
 
 \begin{frame}{Operation: new account}
+
+  We need a user in order to create a new account. This user is taken
+  from the \texttt{new\_user} response:
+
   \centering
-  \begin{tabular}{| c | l |}
-    \hline
-    \textbf{Operation} & new account \\ \hline
-    \textbf{URI}       & http://localhost:5000/bank/users/\{user\}/accounts/ \\ \hline
-    \textbf{Method}    & POST     \\ \hline
-    \textbf{Body}      & empty    \\ \hline
-  \end{tabular}
+  \inputminted{js}{./code/example2_user_response-gen.jsch}
+  % \vspace{5pt}
+  % \hrule{}
+
+  \pause
+  % \centering
+  % \begin{tabular}{| c | l |}
+  %   \hline
+  %   \textbf{Operation} & new account \\ \hline
+  %   \textbf{URI}       & http://localhost:5000/bank/users/\{user\}/accounts/ \\ \hline
+  %   \textbf{Method}    & POST     \\ \hline
+  %   \textbf{Body}      & empty    \\ \hline
+  %     \end{tabular}
+
+  We create our next request with a reference to the \texttt{user}
+  value returned:
+
   \centering
   \inputminted{js}{./code/example2_new_account.jsch}
 \end{frame}
@@ -54,6 +68,14 @@
   \end{tabular}
   \centering
   \inputminted{js}{./code/example2_new_account_response.jsch}
+\end{frame}
+
+
+\begin{frame}{Operation: new account}
+  Now we define the operations unlocked when we create an account.
+
+  \centering
+  \inputminted{js}{./code/example2_new_account_links.jsch}
 \end{frame}
 
 % \begin{frame}{Operation: consult account}
@@ -140,15 +162,15 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Structure}
-  \begin{figure}
-    \centering
-    \includestandalone[mode=buildnew, scale=0.7]{./figures/figure-example-2-account}
-    \caption{File discovery structure}
-    \label{fig:structure}
-  \end{figure}
+% \begin{frame}{Structure}
+%   \begin{figure}
+%     \centering
+%     \includestandalone[mode=buildnew, scale=0.7]{./figures/figure-example-2-account}
+%     \caption{File discovery structure}
+%     \label{fig:structure}
+%   \end{figure}
 
-\end{frame}
+% \end{frame}
 
 \begin{frame}[standout]
   Demo

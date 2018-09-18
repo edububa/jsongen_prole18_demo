@@ -21,9 +21,12 @@
 
   \node[] at (0,0) {\includegraphics[width=\textwidth]{./figures/figure-state-draw}};
 
+  \path (-4.5, 0.5) edge[bend left=60, line2,thick] node[left, pos=0] {...} (-4,0);
+  \path (3.5, 0.5)  edge[bend left=60, line2,thick] node[left, pos=0] {...} (4,0);
+
   \draw [fill=black] (-4,0) circle (2pt);
   \draw [fill=black] (4,0) circle (2pt);
-  \path (-4, 0) edge[bend left=15, line, thick] node[pos=0.5, above] {create\_account()} (4, 0);
+  \path (-4, 0) edge[bend left=15, line3, thick] node[pos=0.5, above] {create\_account()} (4, 0);
 
 \end{tikzpicture}
 \end{document}
