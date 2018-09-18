@@ -91,22 +91,48 @@ next_model_state(Operation, ModelState, {struct,BodyValues}, {struct,Values}) ->
   end.
 
 %% model check
-
 postcondition_model_state(Operation, ModelState, {struct, Values}) ->
-  case Operation of
-    "consult account" ->
-      case {proplists:lookup(<<"accountid">>, Values), proplists:lookup(<<"balance">>, Values)} of
-        {{_, AccountId}, {_, Balance}} ->
-          Balance == maps:get(AccountId, ModelState#state.accounts, -1);
-        _ -> false
-      end;
-    "withdraw" ->
-      case proplists:lookup(<<"accountid">>, Values) of
-        {_, AccountId} ->
-          maps:get(AccountId, ModelState#state.accounts, -1) >= 0;
-        _ -> false
-      end;
-    _ -> true
-  end.
+  NegativeAccounts
+    = maps:filter(fun(AccountId, Balance) ->
+                      Balance < 0
+                  end, ModelState#state.accounts),
+  case maps:keys(NegativeAccounts) of
+    [] -> true;
+    Accounts ->
+      print_error(Accounts),
+      false
+  end and
+    case Operation of
+      "consult account" ->
+        case {proplists:lookup(<<"accountid">>, Values),
+              proplists:lookup(<<"balance">>, Values)} of
+          {{_, AccountId}, {_, Balance}} ->
+            Balance == maps:get(AccountId, ModelState#state.accounts);
+          _ -> false
+        end;
+      _ -> true
+    end.
+
+%% postcondition_model_state(Operation, ModelState, {struct, Values}) ->
+%%   maps:keys(maps:filter(fun(AccountId, Balance) ->
+%%                             Balance < 0
+%%                         end, ModelState#state.accounts)) == []
+%%     and case Operation of
+%%           "consult account" ->
+%%             case {proplists:lookup(<<"accountid">>, Values),
+%%                   proplists:lookup(<<"balance">>, Values)} of
+%%               {{_, AccountId}, {_, Balance}} ->
+%%                 Balance == maps:get(AccountId, ModelState#state.accounts);
+%%               _ -> false
+%%             end;
+%%           _ -> true
+%%         end.
+
+
+print_error(Accounts) ->
+  io:format("~n***************************************************~n" ++
+              "ERROR [postcondition error][negative balance]: ~nAccountId: ~p" ++
+              "~n***************************************************~n",
+            [Accounts]).
 
 %% [{_,[_, {_, HRef}, _, _, _, {_, _, BodyArg, _, _}]

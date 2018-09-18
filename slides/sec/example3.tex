@@ -27,7 +27,7 @@
 \end{frame}
 
 \begin{frame}{State}
-  In our API we will model the state as:
+  We will model our state as:
 
   \inputminted{erlang}{./code/state.erl}
 \end{frame}
@@ -35,17 +35,16 @@
 \begin{frame}{State analysis}
   \begin{figure}
     \centering
-      \begin{overprint}[\textwidth]
-        \onslide<1> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-state-1}
-        \onslide<2> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-state-2}
-        \onslide<3->\includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-state-3}
-  \end{overprint}
+    \begin{overprint}[\textwidth]
+      \onslide<1> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-state-1}
+      \onslide<2> \includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-state-2}
+      \onslide<3->\includestandalone[mode=buildnew, width=\textwidth]{./figures/figure-state-3}
+    \end{overprint}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Model: next\_state}
-  This function changes the model's state and then calls the internal
-  function of jsongen with the same name.
+  This function changes our model' state.
 
   \inputminted{erlang}{./code/next_state.erl}
 \end{frame}
@@ -58,12 +57,12 @@
   \inputminted{erlang}{./code/next_model_state1.erl}
 \end{frame}
 
-\begin{frame}{Model: postcondition}
-  This function checks the postcondition properties defined in the
-  model.
+% \begin{frame}{Model: postcondition}
+%   This function checks the postcondition properties defined in the
+%   model.
 
-  \inputminted{erlang}{./code/postcondition.erl}
-\end{frame}
+%   \inputminted{erlang}{./code/postcondition.erl}
+% \end{frame}
 
 \begin{frame}{Model: postcondition\_model\_state}
   \inputminted{erlang}{./code/postcondition_model_state.erl}
