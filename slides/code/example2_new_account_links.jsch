@@ -1,12 +1,12 @@
 {
   "links": [
     {
-      "title": "consult account",
+      "title": "account balance",
       "method": "GET",
       "href": ".../bank/users/{owner}/accounts/{accountid}/",
-      "rel": "consult",
+      "rel": "balance",
       "targetSchema": {
-        "$ref": "consult_account_response.jsch#"
+        "$ref": "balance_account_response.jsch#"
       }
     },
     { "title": "deposit", ... },
