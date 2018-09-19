@@ -19,26 +19,34 @@
   \tikzset{line2/.style={draw, ->, >=latex'}}
   \tikzset{line3/.style={draw, <->, >=latex', dashed}}
 
-  \node[] at (0,0) {\includegraphics[width=\textwidth]{./figure-state-draw}};
+  \node[] at (0,0)
+  {\includegraphics[width=\textwidth]{./figure-state-draw}};
 
-  \path (-4.5, 0.5) edge[bend left=60, line2,thick] node[left, pos=0] {...} (-4,0);
-  \path (3.5, 0.5)  edge[bend left=60, line2,thick] node[left, pos=0] {...} (4,0);
+  \draw [fill=black] (-5, 0.8) node[below left] {\{\}} circle (2pt);
+  \draw [fill=black] (3, 1)  node[above right] {\{\}} circle (2pt);
+  \path (-5, 0.8) edge[bend left=15, line3, thick] node[pos=0.55,
+  above] {create\_account() $\rightarrow$ A} (3, 1);
 
-  \draw [fill=black] (-4,0) circle (2pt);
-  \draw [fill=black] (4,0) circle (2pt);
-  \path (-4, 0) edge[bend left=15, line3, thick] node[pos=0.5, above] {create\_account()} (4, 0);
+  %%
 
+  \path (-5, 0.8) edge[bend left=15, line2,thick] node[right, pos=0.4] {A} (-4,0);
+  \path (3, 1)  edge[bend left=15, line2,thick] node[right, pos=0.4] {A} (4,0);
+
+  \draw [fill=black] (-4,0) node[below left] {\{A:0\}} circle (2pt);
+  \draw [fill=black] (4,0)  node[right] {\{A:0\}} circle (2pt);
 
   %
-  \path (-4, 0) edge[bend left=15, line2, thick] node[pos=0.3, right]  {deposit(n)} (-3.2, -1.6);
-  \draw [fill=black] (-3.2,-1.6) circle (2pt);
 
-  \path (4, 0) edge[bend left=15, line2, thick] node[pos=0.3, right] {deposit(n)} (4.8, -1.6);
-  \draw [fill=black] (4.8,-1.6) circle (2pt);
+  \path (-4, 0) edge[bend left=15, line3, thick] node[pos=0.45, above] {deposit(A,10)} (4, 0);
 
   %
+  \path (-4, 0) edge[bend left=15, line2, thick] node[pos=0.5, right]  {A+=10} (-3.2, -1);
+  \draw [fill=black] (-3.2,-1) node[left] {\{A:10\}} circle (2pt);
 
-  \path (-3.2, -1.6) edge[bend left=15, line3, thick] node[pos=0.4, below] {balance} (4.8, -1.6);
+  \path (4, 0) edge[bend left=15, line2, thick] node[pos=0.5, right] {A+=10} (4.8, -1.2);
+  \draw [fill=black] (4.8,-1.2) node[right] {\{A:10\}} circle (2pt);
+
+  %
 
 \end{tikzpicture}
 \end{document}

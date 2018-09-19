@@ -36,15 +36,17 @@
 \end{frame}
 
 \begin{frame}{Automatic body generation}{Creating the new user body}
-  \centering
-  \begin{tabular}{| c | l |}
-    \hline
-    \textbf{Body} & name: string, password: string \\ \hline
+  \begin{center}
+    \begin{tabular}{| c | l |}
+      \hline
+      \textbf{Body} & name: string, password: string \\ \hline
+    \end{tabular}
+  \end{center}
+  \begin{tabular}{p{6cm} l}
+    JSON Schema definition&JSON generated
   \end{tabular}
-
   \begin{minipage}{0.5\textwidth}
     \centering
-    {JSON Schema definition}
     \inputminted{js}{./code/example1_body.jsch}
   \end{minipage}
   \vline
@@ -52,7 +54,6 @@
   \hspace{10pt}
   \begin{minipage}{0.4\textwidth}
     \centering
-    {Genrated JSON}             % TODO
     \inputminted{js}{./code/example1_body-gen.jsch}
   \end{minipage}
 
@@ -61,7 +62,6 @@
 \end{frame}
 
 \begin{frame}{Body generator: self-defined generators}
-  \centering
   \begin{tabular}{| c | l |}
     \hline
     \textbf{Body} & name: string, password: string \\ \hline
@@ -71,18 +71,19 @@
 \end{frame}
 
 \begin{frame}{Response validation}{Validating the new user response}
-  \centering
-  \begin{tabular}{| c | l |}
-    \hline
-    \textbf{Result}    & user: string \\ \hline
-    \textbf{Status}    & 201 \\ \hline
-  \end{tabular}
-  \\
+  \begin{center}
+    \begin{tabular}{| c | l |}
+      \hline
+      \textbf{Result}    & user: string \\ \hline
+      \textbf{Status}    & 201 \\ \hline
+    \end{tabular}
+  \end{center}
   \begin{tabular}{p{6cm} l}
     JSON Schema definition & Valid JSON
   \end{tabular}
-  \centering
+
   \begin{minipage}{0.5\textwidth}
+    \centering
     \inputminted{js}{./code/example1_new_user_response.jsch}
   \end{minipage}
   \vline
