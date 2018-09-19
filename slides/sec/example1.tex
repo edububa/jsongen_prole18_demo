@@ -1,8 +1,9 @@
-\section{Testing a web service operation using jsongen}
+\section{Testing a single web service operation using jsongen}
 
 % TODO: all tables same width
 
-\begin{frame}{Objectives and example}
+\begin{frame}{Testing a single web service operation using jsongen}
+  \framesubtitle{Operation: new user}
   The main objective of this example is to give a general idea of how
   to use jsongen to test a simple web service operation.\\
 
@@ -29,11 +30,12 @@
     \textbf{URI}       & http://localhost:5000/bank/users/ \\ \hline
     \textbf{Method}    & POST     \\ \hline
   \end{tabular}
+
   \centering
   \inputminted{js}{./code/example1_op_description.jsch}
 \end{frame}
 
-\begin{frame}{Body generator}
+\begin{frame}{Automatic body generation}{Creating the new user body}
   \centering
   \begin{tabular}{| c | l |}
     \hline
@@ -41,6 +43,8 @@
   \end{tabular}
 
   \begin{minipage}{0.5\textwidth}
+    \centering
+    {JSON Schema definition}
     \inputminted{js}{./code/example1_body.jsch}
   \end{minipage}
   \vline
@@ -48,6 +52,7 @@
   \hspace{10pt}
   \begin{minipage}{0.4\textwidth}
     \centering
+    {Genrated JSON}             % TODO
     \inputminted{js}{./code/example1_body-gen.jsch}
   \end{minipage}
 
@@ -65,14 +70,17 @@
   \inputminted{js}{./code/example1_body_custom_generators.jsch}
 \end{frame}
 
-\begin{frame}{Response validation}
+\begin{frame}{Response validation}{Validating the new user response}
   \centering
   \begin{tabular}{| c | l |}
     \hline
     \textbf{Result}    & user: string \\ \hline
     \textbf{Status}    & 201 \\ \hline
   \end{tabular}
-
+  \\
+  \begin{tabular}{p{6cm} l}
+    JSON Schema definition & Valid JSON
+  \end{tabular}
   \centering
   \begin{minipage}{0.5\textwidth}
     \inputminted{js}{./code/example1_new_user_response.jsch}
@@ -88,7 +96,7 @@
   \centering
 \end{frame}
 
-\begin{frame}{Structure}
+\begin{frame}{JSON Schema files relationships}
   At the end we will have 2 files:
   \begin{itemize}
   \item \texttt{new\_user.jsch} which contains the information used in
@@ -100,6 +108,9 @@
   \inputminted{js}{./code/example1_targetSchema.jsch}
 \end{frame}
 
-\begin{frame}[standout]
-  Demo
+\begin{frame}{}{}
+  \begin{center}
+    \vspace{15pt}
+    {\Huge Demo}
+  \end{center}
 \end{frame}

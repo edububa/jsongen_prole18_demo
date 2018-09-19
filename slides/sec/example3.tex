@@ -1,11 +1,12 @@
 \section{Testing a web service state correctness with a jsongen model}
 
-\begin{frame}{Objectives and example}
-  The main objective of this example is to give a general idea of how
-  to use jsongen to test the state of a web service.
-
-  The web service state:\\
-
+\begin{frame}{Testing a web service state correctness with a jsongen model}
+  \begin{itemize}
+  \item The main objective of this example is to give a general idea
+    of how to use jsongen to test the state of a web service.
+  \item The web service state:\\
+  \end{itemize}
+  \vspace{20pt}
   \centering
   \begin{tabular}{| c | c |}
     \hline
@@ -19,20 +20,12 @@
   \centering
 \end{frame}
 
-\begin{frame}{The model interface}
-  To use the model we need to implement the next 3 functions in an
-  erlang module:
-
-  \inputminted{erlang}{./code/interface.erl}
-\end{frame}
-
-\begin{frame}{State}
-  We will model our state as:
-
-  \inputminted{erlang}{./code/state.erl}
-\end{frame}
-
 \begin{frame}{State analysis}
+  \vspace{10pt}
+  \begin{tabular}{p{7cm} l}
+    {\Large Abstract state machine}&{\Large Server state}
+  \end{tabular}
+  \\
   \begin{figure}
     \centering
     \begin{overprint}[\textwidth]
@@ -43,13 +36,27 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Model: next\_state}
-  This function changes our model' state.
 
-  \inputminted{erlang}{./code/next_state.erl}
+\begin{frame}{Abstract state machine interface}
+  To program the abstract state machine we need to implement the
+  following functions:
+
+  \inputminted{erlang}{./code/interface.erl}
 \end{frame}
 
-\begin{frame}{Model: next\_model\_state}
+\begin{frame}{Abstract state machine bank intial state}
+  We will model our state as:
+
+  \inputminted{erlang}{./code/state.erl}
+\end{frame}
+
+% \begin{frame}{Model: next\_state}
+%   This function changes our model' state.
+
+%   \inputminted{erlang}{./code/next_state.erl}
+% \end{frame}
+
+\begin{frame}{Abstract state machine bank next\_state}
   \inputminted{erlang}{./code/next_model_state.erl}
 \end{frame}
 
@@ -64,10 +71,13 @@
 %   \inputminted{erlang}{./code/postcondition.erl}
 % \end{frame}
 
-\begin{frame}{Model: postcondition\_model\_state}
+\begin{frame}{Abstract state machine bank postcondition\_state}
   \inputminted{erlang}{./code/postcondition_model_state.erl}
 \end{frame}
 
-\begin{frame}[standout]
-  Demo
+\begin{frame}{}{}
+  \begin{center}
+    \vspace{15pt}
+    {\Huge Demo}
+  \end{center}
 \end{frame}

@@ -1,5 +1,5 @@
-next_model_state(Operation, ModelState, {struct,BodyValues},
-                 {struct,Values}) ->
+next_state(Super, State, Result, Call) ->
+  ...
   case Operation of
     "new_user" ->
       case proplists:lookup(<<"user">>, Values) of
@@ -9,5 +9,4 @@ next_model_state(Operation, ModelState, {struct,BodyValues},
            };
         none -> ModelState
       end;
-
     ...

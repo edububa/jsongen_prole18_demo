@@ -1,8 +1,8 @@
 \documentclass[10pt]{beamer}
-
+\setbeamertemplate{navigation symbols}{}
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
-\usetheme{metropolis}
+\usetheme{Boadilla}
 
 \usepackage{appendixnumberbeamer}
 \usepackage{pgfplots}
@@ -10,6 +10,9 @@
 \usepackage[scale=2]{ccicons}
 \usepackage{minted}
 \usepackage{enumerate}
+\usepackage{charter}
+\usepackage[defaultsans,scale=0.9]{droidsans}
+\usepackage[defaultmono,scale=0.9]{droidmono}
 
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
@@ -20,17 +23,17 @@
 
 \newcommand\Fontvi{\fontsize{10}{12}\selectfont}
 
-\title{Tool Demonstration: Testing JSON Web Services Using jsongen}
+\title[Testing JSON Web Services Using jsongen]{Tool Demonstration: Testing JSON Web Services Using jsongen}
 % \subtitle{A modern beamer theme}
 \date{\today}
-\author{
+\author[Ballesteros, Bueso, Fredlund, Mariño]{
   Ignacio Ballesteros\\
   Luis Eduardo Bueso\\
   Lars-Åke Fredlund\\
   Julio Mariño
 }
 \graphicspath{{./pics}}
-\institute{Universidad Politécnica de Madrid - PROLE 2018}
+\institute[UPM]{}
 \titlegraphic{
   \hfill\includegraphics[height=1.5cm]{./pics/upm-logo.png}
   % \includegraphics[height=1.5cm]{pics/sig_plig.png}
@@ -40,6 +43,12 @@
 \begin{document}
 
 \maketitle
+
+\setbeamertemplate{background}{
+\pgfputat{\pgfxy(12.9,-9.5)}
+ 	 {\pgfbox[right,base]
+         {\pgfimage[height=1cm]{./pics/BarraPolit_BN}}}
+}
 
 \input{sec/context.tex}
 
